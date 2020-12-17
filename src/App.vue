@@ -22,21 +22,29 @@
             </div>
           </v-cols>
           <v-spacer></v-spacer>
+
           <v-cols cols="2" class="mt-3">
 
-            <v-menu offse-y>
+            <!--            TODO Implement Render of this bar only if they're not logged in. otherwise it's the other one. (logged in bar)-->
+            <v-menu offset-y>
               <template v-slot:activator="{on, attrs}">
-
-                <v-icon v-bind="attrs" v-on="on">mdi-account</v-icon>
-
+                <v-icon v-bind="attrs" v-on="on">mdi-account-circle</v-icon>
               </template>
               <v-list>
-                <v-list-item>
-                  <v-list-item-title>Login</v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-title>Register</v-list-item-title>
-                </v-list-item>
+                <v-list-item-group active-class="" v-model="selectedItem" color="success">
+                  <v-list-item @click="switchToView('/login')">
+                    <v-list-item-content>
+                      <v-list-item-title class="text--primary">Login</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-content>
+                      <v-list-item-title class="text--primary">Register</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                </v-list-item-group>
               </v-list>
             </v-menu>
           </v-cols>
@@ -59,7 +67,13 @@ export default {
   name: 'App',
 
   data: () => ({
-    //
+    selectedItem: 0
   }),
+  methods: {
+    switchToView(view) {
+      console.log(`Switching to view ${view}`)
+      this.$router.push(view);
+    }
+  }
 };
 </script>
