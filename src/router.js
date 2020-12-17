@@ -13,11 +13,17 @@ const loginGuard = async(to, from, next) => {
  */
 
 const router = new Router({
-    routes:[
+    routes: [
         {
-            path:'/',
-            alias:'/login',
-
+            path: '/',
+            alias: '/login',
+            component: Login,
+            name: 'login',
+            meta: {
+                guest: true
+            }
         }
     ]
-})
+});
+
+export default router;

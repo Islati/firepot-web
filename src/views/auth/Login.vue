@@ -1,5 +1,7 @@
 <template>
-<span>Login Page</span>
+  <v-container>
+    <span>Login Page View</span>
+  </v-container>
 </template>
 
 <script>
