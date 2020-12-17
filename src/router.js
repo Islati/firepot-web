@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from './views/auth/Login'
+import Register from "./views/auth/Register";
 
 Vue.use(Router);
 
@@ -19,6 +20,15 @@ const router = new Router({
             alias: '/login',
             component: Login,
             name: 'login',
+            meta: {
+                guest: true
+            }
+        },
+        {
+            path: "/register",
+            alias: "/sign-up",
+            component: Register,
+            name: 'register',
             meta: {
                 guest: true
             }
