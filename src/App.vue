@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <!--    TODO Implement navigation styles like header and footer. -->
+
+    <router-view></router-view>
   </div>
 </template>
 
