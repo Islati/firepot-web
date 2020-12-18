@@ -27,6 +27,7 @@
 
             <v-card-actions>
               <v-btn outlined rounded text color="success" type="submit">Login</v-btn>
+              <v-spacer></v-spacer>
               <v-btn outlined rounded text color="primary" @click="$router.push('register')">Register</v-btn>
             </v-card-actions>
           </v-card>
@@ -93,7 +94,7 @@ export default {
           this.errorMessage = json['message'];
           return;
         }
-        
+
         let auth = json['payload']['auth'];
         vm.$store.commit('setAuthToken', auth);
 

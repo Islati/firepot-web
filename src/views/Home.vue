@@ -1,15 +1,17 @@
 <template>
-  <hello-world />
+  <v-container class="d-flex justify-center">
+
+  </v-container>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
-
   export default {
     name: 'Home',
+    data: () => ({
+
+    }),
 
     components: {
-      HelloWorld,
     },
   }
 </script>

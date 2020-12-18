@@ -38,7 +38,9 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn outlined rounded text color="success" type="submit">Join</v-btn>
+              <v-btn outlined rounded text color="success" type="submit">Complete Registration</v-btn>
+              <v-spacer></v-spacer>
+              <v-btn outlined rounded link to="/login" color="primary" type="button">Return to Login</v-btn>
             </v-card-actions>
           </v-card>
         </v-form>
