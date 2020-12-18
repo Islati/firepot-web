@@ -31,14 +31,14 @@
                 <v-icon v-bind="attrs" v-on="on">mdi-account-circle</v-icon>
               </template>
               <v-list>
-                <v-list-item-group active-class="" v-model="selectedItem" color="success">
-                  <v-list-item @click="switchToView('/login')">
+                <v-list-item-group v-model="selectedItem">
+                  <v-list-item @click="switchToView('/login')" link>
                     <v-list-item-content>
                       <v-list-item-title class="text--primary">Login</v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
 
-                  <v-list-item>
+                  <v-list-item @click="switchToView('/register')" link>
                     <v-list-item-content>
                       <v-list-item-title class="text--primary">Register</v-list-item-title>
                     </v-list-item-content>

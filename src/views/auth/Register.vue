@@ -14,11 +14,13 @@
 
               <v-row>
                 <v-col sm="6">
-                  <v-text-field v-model="firstName" :rules="firstNameRules" label="First Name" required clearable></v-text-field>
+                  <v-text-field v-model="firstName" :rules="firstNameRules" label="First Name" required
+                                clearable></v-text-field>
                 </v-col>
 
                 <v-col sm="6">
-                  <v-text-field v-model="lastName" :rules="lastNameRules" label="Last Name" required clearable></v-text-field>
+                  <v-text-field v-model="lastName" :rules="lastNameRules" label="Last Name" required
+                                clearable></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
@@ -69,7 +71,7 @@ export default {
     email: "",
     emailRules: [
       v => !!v || "Your email is required",
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      v => /.+@.+\..+/.test(v) || 'Email must be valid',
     ],
     password: "",
     passwordRules: [
@@ -102,6 +104,7 @@ export default {
     submit: function (e) {
 
       if (!this.validate()) {
+        e.preventDefault();
         return;
       }
 
@@ -121,6 +124,8 @@ export default {
         })
       }).then(response => {
         let json = response.data;
+
+        //todo check response status.
 
         if (json['status'] !== 'success') {
           this.errorMessage = json['message'];
