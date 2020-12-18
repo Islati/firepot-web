@@ -8,7 +8,7 @@
     >
       <v-container>
         <v-row>
-          <v-cols cols="4">
+          <v-col cols="4">
             <div class="d-flex align-center">
               <v-img
                   alt="Firepot Logo"
@@ -20,10 +20,10 @@
               />
               <h1>FirePot</h1>
             </div>
-          </v-cols>
+          </v-col>
           <v-spacer></v-spacer>
 
-          <v-cols cols="2" class="mt-3">
+          <v-col cols="2" class="mt-3">
 
             <!--            TODO Implement Render of this bar only if they're not logged in. otherwise it's the other one. (logged in bar)-->
             <v-menu offset-y>
@@ -47,7 +47,7 @@
                 </v-list-item-group>
               </v-list>
             </v-menu>
-          </v-cols>
+          </v-col>
 
         </v-row>
       </v-container>
