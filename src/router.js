@@ -1,30 +1,30 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import store from "./store";
+// import store from "./store";
 
 /* Views */
 import Login from './views/auth/Login'
 import Register from "./views/auth/Register";
-import Home from "./views/Home";
+import StoreOverview from "./views/store/StoreOverview";
 
 Vue.use(Router);
 
-let entryUrl = null;
-
-const loginGuard = async (to, from, next) => {
-    if (store.getters.isLoggedIn) {
-        if (entryUrl) {
-            const url = entryUrl;
-            entryUrl = null;
-            return next(url);
-        } else {
-            next();
-        }
-    } else {
-        entryUrl = to.path;
-        next("/");
-    }
-};
+// let entryUrl = null;
+//
+// let loginGuard = async (to, from, next) => {
+//     if (store.getters.isLoggedIn) {
+//         if (entryUrl) {
+//             const url = entryUrl;
+//             entryUrl = null;
+//             return next(url);
+//         } else {
+//             next();
+//         }
+//     } else {
+//         entryUrl = to.path;
+//         next("/");
+//     }
+// };
 
 const router = new Router({
     routes: [
@@ -47,12 +47,12 @@ const router = new Router({
             }
         },
         {
-            path: "/home",
-            component: Home,
+            path: "/store",
+            alias: '/home',
+            component: StoreOverview,
             meta: {
                 guest: false
-            },
-            beforeEnter: loginGuard
+            } // beforeEnter: loginGuard
         }
     ]
 });
