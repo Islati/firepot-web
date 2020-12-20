@@ -6,6 +6,7 @@ import Router from 'vue-router';
 import Login from './views/auth/Login'
 import Register from "./views/auth/Register";
 import StoreOverview from "./views/store/StoreOverview";
+import StoreItem from "./views/store/StoreItem";
 
 Vue.use(Router);
 
@@ -48,11 +49,20 @@ const router = new Router({
         },
         {
             path: "/store",
+            name: "store",
             alias: '/home',
             component: StoreOverview,
             meta: {
                 guest: false
             } // beforeEnter: loginGuard
+        },
+        {
+            path: "/store/item/:itemId",
+            name: "store-item",
+            component: StoreItem,
+            meta: {
+                guest: false
+            }
         }
     ]
 });

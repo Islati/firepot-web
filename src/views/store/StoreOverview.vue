@@ -33,11 +33,16 @@
               <div>{{ flower.description }}</div>
             </v-card-text>
             <v-card-text>
-              <v-chip v-for="tag in flower.tags" :key="tag" color="green" text-color="white" class="mx-1">{{ tag }}</v-chip>
+              <v-chip v-for="tag in flower.tags" :key="tag" color="green" text-color="white" class="mx-1">{{
+                  tag
+                }}
+              </v-chip>
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions>
-              <v-btn color="deep-purple darken-1" text>View</v-btn>
+              <v-btn color="deep-purple darken-1" text
+                     @click="this.$router.push({path: 'store-item', params: {itemId: flower.id}})">View
+              </v-btn>
             </v-card-actions>
 
           </v-card>
@@ -52,12 +57,8 @@
 <script>
 export default {
   name: "StoreOverview",
-  data: () => ({
-
-  }),
-  computed: {
-
-  }
+  data: () => ({}),
+  computed: {}
 }
 </script>
 

@@ -11,15 +11,20 @@
           <div>{{ storeItem.description }}</div>
         </v-card-text>
         <v-card-text>
-          <v-chip v-for="tag in storeItem.tags" :key="tag" color="green" text-color="white" class="mx-1">{{ tag }}</v-chip>
+          <v-chip v-for="tag in storeItem.tags" :key="tag" color="green" text-color="white" class="mx-1">{{
+              tag
+            }}
+          </v-chip>
         </v-card-text>
         <v-divider></v-divider>
-        <v-card-title>Select Amount</v-card-title>
         <v-card-text>
-          <v-chip-group>
-            <v-chip v-for="(product, id) in storeItem.products" :key="id"></v-chip>
+          <v-chip-group v-model="selectedProductItem">
+            <v-chip v-for="product in storeItem.products" :key="product.id" @click="selectProduct(product.id)"
+                    color="white" text-color="black">{{ product.name }}
+            </v-chip>
           </v-chip-group>
         </v-card-text>
+        <v-card-title v-if="selectedProductId != 0">{{ selectedProductPrice }}</v-card-title>
         <v-card-actions>
 
         </v-card-actions>
@@ -33,10 +38,41 @@ export default {
   name: "StoreItem",
   data: () => ({
     activeCarouselItem: 0,
-    selectedProductAmount: 0
+    selectedProductItem: 0,
+    selectedProductId: 0
   }),
+  methods: {
+    selectProduct: function (id) {
+      this.selectedProductId = id;
+    }
+  },
   props: {
-    storeItem: Object
+    itemId: Number
+  },
+  computed: {
+    storeItem() {
+      let storeItem = null;
+      for (let _item in this.$store.state.store.inventory) {
+        if (_item.id !== this.itemId) {
+          continue;
+        }
+
+        storeItem = _item;
+        break;
+      }
+      return storeItem
+    },
+    selectedProductPrice() {
+      let cost = "N/A"
+      for (let product in this.storeItem.products) {
+        if (product.id !== this.selectedProductId) {
+          continue;
+        }
+        cost = `$${product.cost}`;
+        break;
+      }
+      return cost;
+    }
   }
 }
 </script>

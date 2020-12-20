@@ -33,30 +33,30 @@ export default new Vuex.Store({
                     products: [
                         {
                             id: 102,
-                            name: "Sunday Driver (1g)",
+                            name: "1g",
                             cost: "$10"
                         },
 
                         {
                             id: 103,
-                            name: "Sunday Driver (3.5g)",
+                            name: "3.5g",
                             cost: 25
                         },
 
                         {
                             id: 104,
-                            name: "Sunday Driver (7g)",
+                            name: "7g",
                             cost: 45
                         },
 
                         {
                             id: 105,
-                            name: "Sunday Driver (14g)",
+                            name: "14g",
                             cost: 80
                         },
                         {
                             id: 106,
-                            name: "Sunday Driver (28g)",
+                            name: "28g",
                             cost: 140
                         }
                     ]
