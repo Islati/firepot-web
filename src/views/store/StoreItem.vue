@@ -1,7 +1,7 @@
 <template>
   <v-container class="d-flex justify-center">
     <v-col offset-sm="3" sm="6">
-      <v-card>
+      <v-card v-if="storeItem !== null">
         <v-carousel v-model="activeCarouselItem">
           <v-carousel-item v-for="(galleryImage, i) in storeItem.images.gallery" :key="i" :src="galleryImage.src"
                            transition="fade-transition" reverse-transition="fade-transition"></v-carousel-item>
@@ -39,33 +39,33 @@ export default {
   data: () => ({
     activeCarouselItem: 0,
     selectedProductItem: 0,
-    selectedProductId: 0
+    selectedProductId: 0,
+    storeItem: null
   }),
   methods: {
     selectProduct: function (id) {
       this.selectedProductId = id;
     }
   },
-  props: {
-    itemId: Number
+  created() {
+    let itemId = this.$route.params.itemId;
+    console.log(`Lookgin for item ID ${itemId}`);
+    for (const _item of this.$store.state.store.inventory) {
+      if (_item.id != itemId) {
+        console.log(`Store item ${_item.id} doesn't match requested id ${itemId}`);
+        continue;
+      }
+
+      this.storeItem = _item;
+      console.log(`Store Item selected: ${this.storeItem.id}`)
+      break;
+    }
   },
   computed: {
-    storeItem() {
-      let storeItem = null;
-      for (let _item in this.$store.state.store.inventory) {
-        if (_item.id !== this.itemId) {
-          continue;
-        }
-
-        storeItem = _item;
-        break;
-      }
-      return storeItem
-    },
     selectedProductPrice() {
       let cost = "N/A"
-      for (let product in this.storeItem.products) {
-        if (product.id !== this.selectedProductId) {
+      for (let product of this.storeItem.products) {
+        if (product.id != this.selectedProductId) {
           continue;
         }
         cost = `$${product.cost}`;

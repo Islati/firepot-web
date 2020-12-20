@@ -60,6 +60,9 @@ const router = new Router({
             path: "/store/item/:itemId",
             name: "store-item",
             component: StoreItem,
+            props: {
+                default: true
+            },
             meta: {
                 guest: false
             }

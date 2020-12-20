@@ -41,7 +41,7 @@
             <v-divider></v-divider>
             <v-card-actions>
               <v-btn color="deep-purple darken-1" text
-                     @click="this.$router.push({path: 'store-item', params: {itemId: flower.id}})">View
+                     @click="$router.push({name: 'store-item', params: {itemId: flower.id}})">View
               </v-btn>
             </v-card-actions>
 
