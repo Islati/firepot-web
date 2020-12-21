@@ -61,6 +61,12 @@
 
           <v-col sm="1" class="mt-3" v-if="!this.isLoggedIn">
             <v-btn icon to="/store">
+              <v-icon>mdi-store</v-icon>
+            </v-btn>
+          </v-col>
+
+          <v-col sm="1" class="mt-3" v-if="!this.isLoggedIn">
+            <v-btn icon to="/store/cart">
               <v-icon>mdi-cart</v-icon>
             </v-btn>
           </v-col>

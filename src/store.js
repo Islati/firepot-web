@@ -34,7 +34,7 @@ export default new Vuex.Store({
                         {
                             id: 102,
                             name: "1g",
-                            cost: "$10"
+                            cost: 10
                         },
 
                         {
@@ -92,6 +92,7 @@ export default new Vuex.Store({
         addToCart(context, productId, amount = 1) {
             console.log(`Dispatching action for cart store`);
             context.commit('addCartItem', productId, amount);
+            console.log(`Dispatched and item added: ${productId} x ${amount}`);
         }
     }
 
