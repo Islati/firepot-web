@@ -7,6 +7,7 @@ import Login from './views/auth/Login'
 import Register from "./views/auth/Register";
 import StoreOverview from "./views/store/StoreOverview";
 import StoreItem from "./views/store/StoreItem";
+import Cart from './views/store/Cart';
 
 Vue.use(Router);
 
@@ -63,6 +64,14 @@ const router = new Router({
             props: {
                 default: true
             },
+            meta: {
+                guest: false
+            }
+        },
+        {
+            path: '/store/cart',
+            name: 'cart',
+            component: Cart,
             meta: {
                 guest: false
             }

@@ -32,9 +32,9 @@
             </v-card-text>
             <v-card-title v-if="selectedProductId != 0">{{ selectedProductPrice }}</v-card-title>
             <v-card-actions>
-              <v-btn text color="deep-purple darken-1" @click="$store.dispatch('addToCart',selectedProductId,1)" :disabled="disableCartButton">
-                Add to
-                Cart
+              <v-btn text color="deep-purple darken-1" @click="$store.dispatch('addToCart',selectedProductId,1)"
+                     :disabled="disableCartButton">
+                Add to Cart
               </v-btn>
             </v-card-actions>
           </v-col>
@@ -60,15 +60,17 @@ export default {
   },
   created() {
     let itemId = this.$route.params.itemId;
-    console.log(`Lookgin for item ID ${itemId}`);
+    console.log(`Looking for item ID ${itemId}`);
     for (const _item of this.$store.state.store.inventory) {
-      if (_item.id != itemId) {
+      if (_item.id !== itemId) {
         console.log(`Store item ${_item.id} doesn't match requested id ${itemId}`);
         continue;
       }
 
       this.storeItem = _item;
       console.log(`Store Item selected: ${this.storeItem.id}`)
+
+      this.selectedProductId = _item.products[0].id;
       break;
     }
   },
@@ -79,7 +81,7 @@ export default {
     selectedProductPrice() {
       let cost = "N/A"
       for (let product of this.storeItem.products) {
-        if (product.id != this.selectedProductId) {
+        if (product.id !== this.selectedProductId) {
           continue;
         }
         cost = `$${product.cost}`;

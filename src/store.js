@@ -10,7 +10,7 @@ export default new Vuex.Store({
         name: "User",
         cart: [
             {
-                id: 101, // PRODUCT ID <-- (Includes AMT in some cases) (example, 101 is 1g of silver haze, 102 is 3.5g of silver haze)
+                id: 106, // PRODUCT ID <-- (Includes AMT in some cases) (example, 101 is 1g of silver haze, 102 is 3.5g of silver haze)
                 amount: 1
             },
         ],
@@ -61,6 +61,94 @@ export default new Vuex.Store({
                         }
                     ]
                 },
+                {
+                    id: 103, //Item ID <- Not PRODUCT ID
+                    title: "Vanilla Kush",
+                    description: "Beautiful crystal nugs with hues of rich blue, green, and orange. Each of these babies packs 23% THC & 1.5% CBD.",
+                    images: {
+                        cover: require("./assets/sundae-driver.jpg"),
+                        gallery: [
+                            {
+                                src: require('./assets/sundae-driver.jpg')
+                            }
+                        ]
+                    },
+                    tags: ["Hybrid", "Flower"],
+                    products: [
+                        {
+                            id: 107,
+                            name: "1g",
+                            cost: 10
+                        },
+
+                        {
+                            id: 108,
+                            name: "3.5g",
+                            cost: 25
+                        },
+
+                        {
+                            id: 109,
+                            name: "7g",
+                            cost: 45
+                        },
+
+                        {
+                            id: 110,
+                            name: "14g",
+                            cost: 80
+                        },
+                        {
+                            id: 111,
+                            name: "28g",
+                            cost: 140
+                        }
+                    ]
+                },
+                {
+                    id: 104, //Item ID <- Not PRODUCT ID
+                    title: "White Poison",
+                    description: "Beautiful crystal nugs with hues of rich blue, green, and orange. Each of these babies packs 23% THC & 1.5% CBD.",
+                    images: {
+                        cover: require("./assets/sundae-driver.jpg"),
+                        gallery: [
+                            {
+                                src: require('./assets/sundae-driver.jpg')
+                            }
+                        ]
+                    },
+                    tags: ["Hybrid", "Flower"],
+                    products: [
+                        {
+                            id: 112,
+                            name: "1g",
+                            cost: 10
+                        },
+
+                        {
+                            id: 113,
+                            name: "3.5g",
+                            cost: 25
+                        },
+
+                        {
+                            id: 114,
+                            name: "7g",
+                            cost: 45
+                        },
+
+                        {
+                            id: 115,
+                            name: "14g",
+                            cost: 80
+                        },
+                        {
+                            id: 116,
+                            name: "28g",
+                            cost: 140
+                        }
+                    ]
+                },
             ]
         }
     },
@@ -90,9 +178,8 @@ export default new Vuex.Store({
     },
     actions: {
         addToCart(context, productId, amount = 1) {
-            console.log(`Dispatching action for cart store`);
+            console.log(`Dispatching commit:: addCartItem `);
             context.commit('addCartItem', productId, amount);
-            console.log(`Dispatched and item added: ${productId} x ${amount}`);
         }
     }
 
