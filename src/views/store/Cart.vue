@@ -9,7 +9,7 @@
 
             <v-list three-line>
               <template v-for="(item, index) in cartItems">
-                <v-row :key="index">
+                <v-row :key="item.productId">
 
                   <v-list-item :key="index">
                     <v-list-item-avatar size="150" rounded>
@@ -35,7 +35,7 @@
                           </v-row>
                         </v-col>
                         <v-col sm="1">
-                          <v-icon>mdi-close</v-icon>
+                          <v-icon @click="$store.dispatch('removeFromCart',item.productId)">mdi-close</v-icon>
                         </v-col>
                       </v-row>
 
@@ -45,6 +45,8 @@
                   </v-list-item>
 
                 </v-row>
+
+                <v-divider inset :key="index"></v-divider>
 
               </template>
             </v-list>

@@ -174,12 +174,29 @@ export default new Vuex.Store({
         addCartItem(state, productId, amount = 1) {
             console.log(`User added product ${amount}x${productId} to their cart`)
             state.cart.push({id: productId, amount: amount});
+        },
+        removeCartItem(state, productId) {
+          let cartItems = [];
+
+          for(let item of state.cart) {
+              if (item.id !== productId) {
+                  cartItems.push(item);
+                  continue;
+              }
+              console.log(`Removing item ${productId} from cart rn`);
+          }
+
+          state.cart = cartItems;
         }
     },
     actions: {
-        addToCart(context, productId, amount = 1) {
+        addToCart({commit}, productId, amount) {
             console.log(`Dispatching commit:: addCartItem `);
-            context.commit('addCartItem', productId, amount);
+            commit('addCartItem', productId,amount);
+        },
+        removeFromCart({commit}, productId) {
+            console.log(`Dispatching commit:: removeCartItem x Product ID ${productId}`);
+            commit(`removeCartItem`,productId);
         }
     }
 

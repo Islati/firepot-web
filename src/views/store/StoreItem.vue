@@ -32,7 +32,7 @@
             </v-card-text>
             <v-card-title v-if="selectedProductId != 0">{{ selectedProductPrice }}</v-card-title>
             <v-card-actions>
-              <v-btn text color="deep-purple darken-1" @click="$store.dispatch('addToCart',selectedProductId,1)"
+              <v-btn text color="deep-purple darken-1" @click="$store.dispatch('addToCart', selectedProductId, 1)"
                      :disabled="disableCartButton">
                 Add to Cart
               </v-btn>
