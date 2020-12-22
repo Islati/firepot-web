@@ -9,61 +9,19 @@
           <v-card-title class="justify-center"><h2>Your Items</h2></v-card-title>
 
           <v-card-text>
-
-            <v-list three-line>
-              <template v-for="(item, index) in this.genCartData()">
-                <v-row :key="index">
-
-                  <v-list-item>
-                    <v-list-item-avatar size="150" rounded>
-                      <v-img :src="item.images.cover"></v-img>
-                    </v-list-item-avatar>
-
-                    <v-list-item-content>
-                      <v-row>
-                        <v-col sm="11">
-                          <v-row>
-                            <v-col sm="6">
-                              <v-list-item-title><h2>{{ item.title }}</h2></v-list-item-title>
-                              <v-chip color="deep-purple lighten-1" text-color="white">{{ item.weight }}</v-chip>
-                              <v-chip color="green lighten-1" class="ml-1" text-color="white" v-for="tag in item.tags"
-                                      :key="tag">{{ tag }}
-                              </v-chip>
-                            </v-col>
-                          </v-row>
-                          <v-row>
-                            <v-col sm="12">
-                              <div>{{ item.description }}</div>
-                            </v-col>
-                          </v-row>
-                        </v-col>
-                        <v-col sm="1">
-                          <v-icon @click="removeFromCart(item.productId)">mdi-close</v-icon>
-                        </v-col>
-                      </v-row>
-
-
-                    </v-list-item-content>
-
-                  </v-list-item>
-
-                  <v-divider inset></v-divider>
-                </v-row>
-
-              </template>
-            </v-list>
+            <cart-items :remove-from-cart="removeFromCart"></cart-items>
 
           </v-card-text>
 
           <v-card-text>
             <v-row>
               <v-col sm="3" offset-sm="2">
-                <h2>Total: <small>${{ genCartTotal() }}</small></h2>
+                <h2>Total: <small>${{ genCartTotal(this.$store.state.cart,this.$store.state.store.inventory) }}</small></h2>
               </v-col>
 
               <v-spacer></v-spacer>
               <v-col sm="3">
-                <v-btn color="success" outlined text>Checkout</v-btn>
+                <v-btn color="success" outlined text @click="checkout()">Checkout</v-btn>
               </v-col>
             </v-row>
           </v-card-text>
@@ -77,13 +35,15 @@
 
 <script>
 // eslint-disable-next-line no-unused-vars
-import Confirm from "../../Components/Confirm";
+import Confirm from "@/Components/Confirm";
+import cartMixin from "@/plugins/cartMixin";
+import CartItems from "@/Components/CartItems";
 
 export default {
   name: "Cart",
-  components: {Confirm},
-  data: () => ({
-  }),
+  components: {CartItems, Confirm},
+  data: () => ({}),
+  mixins: [cartMixin],
   methods: {
     async removeFromCart(productId) {
       const confirm = await this.$refs.confirm.open('Delete', 'Are you sure?', {
@@ -94,56 +54,19 @@ export default {
         await this.$store.dispatch('removeFromCart', productId);
         this.$toast.success("Removed item from cart");
       }
-
     },
-    genCartData() {
-      var items = [];
+    async checkout() {
+      const confirm = await this.$refs.confirm.open('Place Order', 'Confirm your order.', {icon: 'mdi-check'});
 
-
-      for (let _cartItem of this.$store.state.cart) {
-        /* Find the store item that has their product id */
-        for (let _storeItem of this.$store.state.store.inventory) {
-          /* Look for their item ids */
-          for (let _product of _storeItem.products) {
-
-            /*
-            If this product is not the one the user has selected
-            then we're not going to process
-            */
-            if (_cartItem.id !== _product.id) {
-              continue;
-            }
-
-
-            /* Build an object for the item in their cart */
-            items.push({
-              title: `${_storeItem.title}`,
-              weight: `${_product.name}`,
-              unitCost: `${_product.cost}`,
-              amount: `${_cartItem.amount}`,
-              description: `${_storeItem.description}`,
-              images: _storeItem.images,
-              productId: _product.id,
-              itemId: _storeItem.id,
-              tags: _storeItem.tags,
-
-            });
-            break;
-          }
-        }
+      if (confirm) {
+        await this.$store.dispatch('submitOrder');
+        this.$toast.success("Order Submitted");
+        setTimeout(() => {
+          this.$router.push({name: 'order', params: {orderId: 1}});
+        })
       }
-      console.log(`Gen cart data called`);
-      return items;
     },
-    genCartTotal() {
-      let amount = 0;
-      for(let _item of this.genCartData()) {
-        amount += _item.unitCost * _item.amount;
-      }
-      return amount;
-    }
-
-  }
+  },
 }
 </script>
 

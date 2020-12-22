@@ -176,27 +176,36 @@ export default new Vuex.Store({
             state.cart.push({id: productId, amount: amount});
         },
         removeCartItem(state, productId) {
-          let cartItems = [];
+            let cartItems = [];
 
-          for(let item of state.cart) {
-              if (item.id !== productId) {
-                  cartItems.push(item);
-                  continue;
-              }
-              console.log(`Removing item ${productId} from cart rn`);
-          }
+            for (let item of state.cart) {
+                if (item.id !== productId) {
+                    cartItems.push(item);
+                    continue;
+                }
+                console.log(`Removing item ${productId} from cart rn`);
+            }
 
-          state.cart = cartItems;
+            state.cart = cartItems;
+        },
+        clearCart(state) {
+            state.cart = [];
+            console.log(`Cart has been cleared`);
         }
     },
     actions: {
         addToCart({commit}, productId, amount) {
             console.log(`Dispatching commit:: addCartItem `);
-            commit('addCartItem', productId,amount);
+            commit('addCartItem', productId, amount);
         },
         removeFromCart({commit}, productId) {
             console.log(`Dispatching commit:: removeCartItem x Product ID ${productId}`);
-            commit(`removeCartItem`,productId);
+            commit(`removeCartItem`, productId);
+        },
+        submitOrder(context) {
+            //todo submit call to backend.
+            console.log(`Submitting Order with cart ${JSON.stringify(context.state.cart)}`)
+            context.commit('clearCart'); //todo reimplement this when the cart is saved on the backend.
         }
     }
 

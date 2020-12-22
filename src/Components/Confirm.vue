@@ -2,6 +2,7 @@
   <v-dialog v-model="dialog" :max-width="options.width" :style="{ zIndex: options.zIndex }" @keydown.esc="cancel">
     <v-card>
       <v-toolbar dark :color="options.color" dense flat>
+        <v-icon v-if="options.icon">{{options.icon}}</v-icon>
         <v-toolbar-title class="white--text">{{ title }}</v-toolbar-title>
       </v-toolbar>
       <v-card-text v-show="!!message" class="pa-4">{{ message }}</v-card-text>
@@ -53,7 +54,8 @@ export default {
     options: {
       color: 'primary',
       width: 290,
-      zIndex: 200
+      zIndex: 200,
+      icon: null
     }
   }),
   methods: {
