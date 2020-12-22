@@ -32,7 +32,7 @@
             </v-card-text>
             <v-card-title v-if="selectedProductId != 0">{{ selectedProductPrice }}</v-card-title>
             <v-card-actions>
-              <v-btn text color="deep-purple darken-1" @click="$store.dispatch('addToCart', selectedProductId, 1)"
+              <v-btn text color="deep-purple darken-1" @click="addProductToCart(selectedProductId, 1)"
                      :disabled="disableCartButton">
                 Add to Cart
               </v-btn>
@@ -56,6 +56,10 @@ export default {
   methods: {
     selectProduct: function (id) {
       this.selectedProductId = id;
+    },
+    async addProductToCart(id, amount) {
+      await this.$store.dispatch('addToCart', id, amount);
+      this.$toast.success("Added to cart", {duration: 2200})
     }
   },
   created() {

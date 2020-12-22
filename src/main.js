@@ -4,9 +4,14 @@ import vuetify from './plugins/vuetify';
 import router from './router';
 import store from "./store";
 
-import VuetifyConfirm from 'vuetify-confirm';
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
-Vue.use(VuetifyConfirm);
+Vue.use(VueToast);
+
+// import VuetifyConfirm from 'vuetify-confirm';
+
+// Vue.use(VuetifyConfirm);
 
 Vue.config.productionTip = false
 

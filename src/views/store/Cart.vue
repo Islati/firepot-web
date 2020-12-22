@@ -92,7 +92,7 @@ export default {
 
       if (confirm) {
         await this.$store.dispatch('removeFromCart', productId);
-        console.log(`Dispatched remove from cart`)
+        this.$toast.success("Removed item from cart");
       }
 
     },
