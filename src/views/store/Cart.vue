@@ -6,7 +6,7 @@
     <v-row class="justify-center">
       <v-col sm="6">
         <v-card>
-          <v-card-title class="justify-center"><h2>Your Items</h2></v-card-title>
+          <v-card-title class="justify-center"><h2>Cart Items</h2></v-card-title>
 
           <v-card-text>
             <cart-items :remove-from-cart="removeFromCart"></cart-items>

@@ -38,7 +38,7 @@
             </ol>
           </v-row>
 
-          <v-row class="justify-center mt-2">
+          <v-row class="justify-center mt-2 mb-2">
             <div>We will update this page with (and email you) your tracking number when it's available.</div>
           </v-row>
 

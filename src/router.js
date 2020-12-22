@@ -9,6 +9,7 @@ import StoreOverview from "./views/store/StoreOverview";
 import StoreItem from "./views/store/StoreItem";
 import Cart from './views/store/Cart';
 import OrderOverview from "./views/store/OrderOverview";
+import OrdersOverview from "@/views/store/OrdersOverview";
 
 Vue.use(Router);
 
@@ -70,7 +71,7 @@ const router = new Router({
             }
         },
         {
-            path: '/store/cart',
+            path: '/cart',
             name: 'cart',
             component: Cart,
             meta: {
@@ -78,7 +79,15 @@ const router = new Router({
             }
         },
         {
-            path: '/store/order/:orderId',
+            path: '/orders',
+            name: 'orders',
+            component: OrdersOverview,
+            meta: {
+                guest: false
+            }
+        },
+        {
+            path: '/order/:orderId',
             name: 'order',
             component: OrderOverview,
             props: {

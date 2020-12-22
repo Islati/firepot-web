@@ -8,6 +8,17 @@ export default new Vuex.Store({
     state: {
         authToken: null,
         name: "User",
+        orders: [
+            {
+                id: 1,
+                items: [
+                    {
+                        productId: 102,
+                        amount: 1
+                    }
+                ]
+            }
+        ],
         cart: [
             {
                 id: 106, // PRODUCT ID <-- (Includes AMT in some cases) (example, 101 is 1g of silver haze, 102 is 3.5g of silver haze)
