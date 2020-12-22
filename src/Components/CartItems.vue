@@ -18,6 +18,7 @@
                     <v-chip color="green lighten-1" class="ml-1" text-color="white" v-for="tag in item.tags"
                             :key="tag">{{ tag }}
                     </v-chip>
+                    <v-chip color="black" outlined class="ml-1" text-color="gold">${{item.unitCost * item.amount}}</v-chip>
                   </v-col>
                 </v-row>
                 <v-row>

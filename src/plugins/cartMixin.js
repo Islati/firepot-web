@@ -42,6 +42,9 @@ var cartMixin = {
             for (let _item of this.genCartDisplayData(cart, inventory)) {
                 amount += _item.unitCost * _item.amount;
             }
+
+            amount += 20 //Plus $20 for shipping.
+
             return amount;
         }
     }

@@ -20,7 +20,9 @@
               <li class="mb-1">Add "freshdaddyb@gmail.com" to your bank contacts with the name "Brandon C".</li>
               <small><i>Please use discretion and avoid names with words such as "cannabis, pot, dope, weed"
                 etc.</i></small>
-              <li class="mt-1">Transfer ${{ this.cartTotal() }} to "freshdaddyb@gmail.com"</li>
+              <li class="mt-1">Transfer ${{ genCartTotal(this.$store.state.cart, this.$store.state.store.inventory) }}
+                to "freshdaddyb@gmail.com"
+              </li>
               <v-row>
                 <i><b>Title</b>: Order
                   #{{ $route.params.orderId }}</i>
@@ -47,11 +49,12 @@
 </template>
 
 <script>
+import cartMixin from "@/plugins/cartMixin";
+
 export default {
   name: "OrderOverview",
   data: () => ({}),
-  methods: {
-  },
+  mixins: [cartMixin],
   created() {
     /* Make a request and get order details */
   }

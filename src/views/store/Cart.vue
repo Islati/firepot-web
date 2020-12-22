@@ -10,12 +10,19 @@
 
           <v-card-text>
             <cart-items :remove-from-cart="removeFromCart"></cart-items>
-
           </v-card-text>
 
           <v-card-text>
+
+
             <v-row>
-              <v-col sm="3" offset-sm="2">
+              <v-col sm="9" offset-sm="1">
+                <h3><small>+ Shipping Cost: <i>$20</i> (Canada Post Express, 3 - 5 business days)</small></h3>
+              </v-col>
+            </v-row>
+
+            <v-row>
+              <v-col sm="3" offset-sm="1">
                 <h2>Total: <small>${{ genCartTotal(this.$store.state.cart,this.$store.state.store.inventory) }}</small></h2>
               </v-col>
 
@@ -24,6 +31,7 @@
                 <v-btn color="success" outlined text @click="checkout()">Checkout</v-btn>
               </v-col>
             </v-row>
+
           </v-card-text>
 
         </v-card>

@@ -205,7 +205,7 @@ export default new Vuex.Store({
         submitOrder(context) {
             //todo submit call to backend.
             console.log(`Submitting Order with cart ${JSON.stringify(context.state.cart)}`)
-            context.commit('clearCart'); //todo reimplement this when the cart is saved on the backend.
+            // context.commit('clearCart'); //todo reimplement this when the cart is saved on the backend.
         }
     }
 
