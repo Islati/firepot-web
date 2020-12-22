@@ -4,6 +4,10 @@ import vuetify from './plugins/vuetify';
 import router from './router';
 import store from "./store";
 
+import VuetifyConfirm from 'vuetify-confirm';
+
+Vue.use(VuetifyConfirm);
+
 Vue.config.productionTip = false
 
 new Vue({
