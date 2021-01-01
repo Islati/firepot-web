@@ -17,6 +17,7 @@
                   src="./assets/fire.png"
                   transition="scale-transition"
                   width="40"
+                  @click="this.$router.push('/home');"
               />
               <h1>FirePot</h1>
             </div>
@@ -60,7 +61,7 @@
             </v-menu>
           </v-col>
 
-          <v-col sm="1" class="mt-3" v-if="!this.isLoggedIn">
+          <v-col sm="1" class="mt-3" v-if="this.isLoggedIn">
             <v-menu offset-y>
 
               <template v-slot:activator="{on : {click}}">
@@ -70,13 +71,13 @@
               </template>
               <v-list>
                 <v-list-item-group>
-                  <v-list-item to="/store" link v-if="!this.$store.getters.isLoggedIn">
+                  <v-list-item to="/store" link v-if="this.$store.getters.isLoggedIn">
                     <v-list-item-content>
                       <v-list-item-title class="text--primary">Shop</v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
 
-                  <v-list-item to="/cart" link v-if="!this.$store.getters.isLoggedIn">
+                  <v-list-item to="/cart" link v-if="this.$store.getters.isLoggedIn">
                     <v-list-item-content>
                       <v-list-item-title class="text--primary">Cart</v-list-item-title>
                     </v-list-item-content>

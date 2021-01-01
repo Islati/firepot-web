@@ -120,9 +120,10 @@ export default {
           'Content-Type': 'application/json'
         },
         data: JSON.stringify({
-          firstName: vm.$data.firstName,
-          lastName: vm.$data.lastName,
+          first_name: vm.$data.firstName,
+          last_name: vm.$data.lastName,
           email: vm.$data.email,
+          password: vm.$data.password
         })
       }).then(response => {
         let json = response.data;

@@ -1,6 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+// import {config} from "config"
+
+import axios from 'axios';
+
+// const axios = require('axios').create({baseURL: "http://localhost:5000"})
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -215,8 +221,50 @@ export default new Vuex.Store({
         },
         submitOrder(context) {
             //todo submit call to backend.
+            //todo create endpoint which calls this method.
             console.log(`Submitting Order with cart ${JSON.stringify(context.state.cart)}`)
             // context.commit('clearCart'); //todo reimplement this when the cart is saved on the backend.
+        },
+        /*
+        TODO:
+            - Use axios to perform login
+            - Write methods for logout and other functionality linked to API
+         */
+        login(context, email, password) {
+            axios({
+                method: 'post',
+                url: 'http://localhost:5000/auth/login/',
+                data: {
+                    email: email,
+                    password: password
+                }
+            }).then(res => {
+                console.log(res.data);
+                context.commit("setAuthToken", res.data.payload.auth);
+            });
+        },
+        register(context, firstName, lastName, email, password) {
+            axios({
+                method: 'post',
+                url: 'http://localhost:5000/auth/register/',
+                data: {
+                    email: email,
+                    password: password,
+                    first_name: firstName,
+                    last_name: lastName,
+                }
+            }).then(res => {
+               console.log(res.data);
+
+               let status = res.data.status;
+
+               if (status !== "success") {
+                   console.error("Unable to register!!")
+                   return;
+               }
+
+               context.commit("setAuthToken",res.data.payload.auth);
+            });
         }
     }
 
