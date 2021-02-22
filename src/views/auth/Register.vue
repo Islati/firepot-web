@@ -32,6 +32,12 @@
               </v-row>
               <v-row>
                 <v-col sm="12">
+                  <v-text-field v-model="phone" :rules="phoneRules" label="Phone Number" required
+                                clearable></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col sm="12">
                   <v-text-field v-model="password" :rules="passwordRules" label="Password" required></v-text-field>
                 </v-col>
               </v-row>
@@ -70,17 +76,23 @@ export default {
     lastNameRules: [
       v => !!v || "Your last name is required."
     ],
-    email: "",
-    emailRules: [
-      v => !!v || "Your email is required",
-      v => /.+@.+\..+/.test(v) || 'Email must be valid',
+    phone: "",
+    phoneRules: [
+      v => !!v || "Your phone # is required",
+      // eslint-disable-next-line no-control-regex
+      v => /^\d{10}$/.test(v) || "Phone number is invalid"
     ],
     password: "",
     passwordRules: [
       v => !!v || "Password is required",
       v => (v && v.length >= 8) || "Password must be atleast 8 characters"
     ],
-    errorMessage: ""
+    errorMessage: "",
+    email: "",
+    emailRules: [
+      v => !!v || "Your email is required",
+      v => /.+@.+\..+/.test(v) || 'Email must be valid',
+    ],
   }),
   mixins: [validationMixin],
   validations: {

@@ -83,8 +83,8 @@ export default {
           password: vm.$data.password
         })
       }).then(response => {
-        if (response.statusCode !== 200) {
-          this.errorMessage = "Server Error"
+        if (response.status !== 200) {
+          this.errorMessage = response.statusText;
           return;
         }
 
@@ -96,7 +96,8 @@ export default {
         }
 
         let auth = json['payload']['auth'];
-        vm.$store.commit('setAuthToken', auth);
+        vm.$store.commit('setAuthToken', {token: auth, admin: json['payload']['admin']});
+
 
         vm.$router.push({path: "/home"});
       });

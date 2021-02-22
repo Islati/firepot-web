@@ -10,8 +10,15 @@ import StoreItem from "./views/store/StoreItem";
 import Cart from './views/store/Cart';
 import OrderOverview from "./views/store/OrderOverview";
 import OrdersOverview from "@/views/store/OrdersOverview";
+import Profile from '@/views/users/Profile';
+import AdminOverview from "@/views/admin/AdminOverview";
 
 Vue.use(Router);
+
+/*
+TODO:
+    * Router guard for admin areas by permission level.
+ */
 
 // let entryUrl = null;
 //
@@ -93,6 +100,22 @@ const router = new Router({
             props: {
                 default: true
             },
+            meta: {
+                guest: false
+            }
+        },
+        {
+            path: '/profile',
+            name: 'profile',
+            component: Profile,
+            meta: {
+                guest: false
+            }
+        },
+        {
+            path: '/admin',
+            name: 'adminoverview',
+            component: AdminOverview,
             meta: {
                 guest: false
             }

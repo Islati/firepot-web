@@ -9,7 +9,7 @@
       <v-container>
         <v-row>
           <v-col sm="3">
-            <div class="d-flex align-center">
+            <div class="d-flex align-center" @click="$router.push('/home')" style="cursor: pointer;">
               <v-img
                   alt="Firepot Logo"
                   class="shrink mr-2"
@@ -19,9 +19,10 @@
                   width="40"
                   @click="this.$router.push('/home');"
               />
-              <h1>FirePot</h1>
+              <h1>FirePot <small v-if="this.$store.getters.isAdmin" @click="$router.push('/admin')">Admin</small></h1>
             </div>
           </v-col>
+
           <v-spacer></v-spacer>
 
           <v-col sm="1" class="mt-3">
@@ -54,6 +55,13 @@
                   <v-list-item to="/profile" link v-if="this.$store.getters.isLoggedIn">
                     <v-list-item-content>
                       <v-list-item-title class="text--primary">Profile</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-divider v-if="this.$store.getters.isAdmin"></v-divider>
+                  <v-list-item to="/admin" link v-if="this.$store.getters.isAdmin">
+                    <v-list-item-content>
+                      <v-list-item-title class="text--primary">Admin Panel</v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                 </v-list-item-group>

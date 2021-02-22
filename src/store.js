@@ -12,6 +12,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 
     state: {
+        admin: false,
         authToken: null,
         name: "User",
         orders: [
@@ -176,12 +177,16 @@ export default new Vuex.Store({
             }
 
             return state.authToken.length > 0;
+        },
+        isAdmin: (state) => {
+            return state.admin;
         }
     },
     mutations: {
         setAuthToken(state, token) {
-            console.log(`Authentication token set: ${token}`);
-            state.authToken = token;
+            console.log(`Authentication token set: ${JSON.stringify(token)}`);
+            state.authToken = token.token;
+            state.admin = token.admin
             localStorage.authToken = token;
         },
         logout(state) {
