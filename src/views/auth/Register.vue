@@ -41,6 +41,17 @@
                   <v-text-field v-model="password" :rules="passwordRules" label="Password" required></v-text-field>
                 </v-col>
               </v-row>
+
+              <v-row>
+                <v-col sm="6" offset="3" class="justify-center">
+                  <v-row>
+                    <span>Select your Date of Birth</span>
+                  </v-row>
+                  <v-row>
+                    <v-date-picker v-mode="birthDate"></v-date-picker>
+                  </v-row>
+                </v-col>
+              </v-row>
             </v-card-text>
 
             <v-card-actions>
@@ -60,6 +71,7 @@
 import {validationMixin} from 'vuelidate';
 
 import {required, minLength, email} from "vuelidate/lib/validators";
+import {calculateAgeInYears} from "@/utils";
 
 const axios = require('axios').default;
 
@@ -68,6 +80,7 @@ export default {
 
   data: () => ({
     valid: true,
+    birthDate: new Date().toISOString().substr(0,10),
     firstName: "",
     firstNameRules: [
       v => !!v || "Your first name is required.",
@@ -118,6 +131,12 @@ export default {
     submit: function (e) {
 
       if (!this.validate()) {
+        e.preventDefault();
+        return;
+      }
+
+      if (calculateAgeInYears(new Date(this.$data.birthDate)) < 19) {
+        this.errorMessage = "You must be 19 years of age to register.";
         e.preventDefault();
         return;
       }
