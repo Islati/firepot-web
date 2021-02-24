@@ -14,8 +14,7 @@ function calculateAgeInYears(date) {
         : year_diff - 1;
 }
 
-function loadImageBase64(element, callback) {
-    var file = element.files[0];
+function loadImageBase64(file, callback) {
     var reader = new FileReader();
     reader.onloadend = function () {
         callback(reader.result);

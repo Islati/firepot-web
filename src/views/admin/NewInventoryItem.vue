@@ -32,10 +32,10 @@
           <v-row>
             <v-col sm="6">
               <v-file-input show-size label="Cover Image" ref="coverimage" v-model="coverImage"
-                            @change=""></v-file-input>
+                            @change="this.previewSelectedImage"></v-file-input>
             </v-col>
             <v-col sm="6">
-
+              <v-img :src="coverImage" height="300" width="300"></v-img>
             </v-col>
           </v-row>
 
@@ -69,9 +69,13 @@
 </template>
 
 <script>
+import {loadImageBase64} from "@/utils";
+import axios from "axios";
+
 export default {
   name: "NewInventoryItem",
   data: () => ({
+    valid: true,
     errorMessage: "",
     itemName: "",
     itemNameRules: [
@@ -81,7 +85,7 @@ export default {
     itemDescriptionRules: [
       v => !!v || "Items require a description"
     ],
-    coverImage: [],
+    coverImage: " ",
     tags: [],
     tagRules: [
       v => !!v || "Tags are required",
@@ -93,18 +97,51 @@ export default {
     validateNewItemForm: function () {
       this.$refs.newProductForm.validate();
     },
-    previewSelectedImage: function (e) {
-
+    previewSelectedImage: function (file) {
+      console.log(typeof (file));
+      console.log(JSON.stringify(file));
+      let vm = this;
+      loadImageBase64(file, function (data) {
+        vm.coverImage = data;
+        console.log(data);
+      })
     },
     submit: function (e) {
-      if (!this.validate()) {
+      if (!this.validateNewItemForm()) {
         e.preventDefault();
         return;
       }
 
-      if (this.tags.length == 0) {
+      if (this.tags.length < 1) {
         this.errorMessage = "Every item requires tags"
+        return;
       }
+
+      axios({
+        url: 'http://localhost:8080/admin/inventory/new/',
+        method: 'POST',
+        responseType: 'json',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.$store.state.authToken}`
+        },
+        data: JSON.stringify({
+          name: this.itemName,
+          description: this.itemDescription,
+          cover_image_name: this.itemName.toLowerCase().replace(" ", "_"),
+          cover_image_data: this.coverImage
+        })
+      }).then(response => {
+        let json = response.data;
+
+        if (json['status'] !== 'success') {
+          this.errorMessage = json['message'];
+          return;
+        }
+
+        this.$toast.success(json['message']);
+        console.log(json['payload'])
+      })
     },
     updateTags() {
       this.$nextTick(() => {
