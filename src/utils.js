@@ -1,4 +1,8 @@
 function calculateAgeInYears(date) {
+    /**
+     * Used in user registration.
+     * @type {Date}
+     */
     var now = new Date();
     var current_year = now.getFullYear();
     var year_diff = current_year - date.getFullYear();
@@ -10,4 +14,15 @@ function calculateAgeInYears(date) {
         : year_diff - 1;
 }
 
-export {calculateAgeInYears}
+function loadImageBase64(element, callback) {
+    var file = element.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function () {
+        callback(reader.result);
+
+    }
+
+    reader.readAsDataURL(file);
+}
+
+export {calculateAgeInYears, loadImageBase64}
