@@ -65,19 +65,38 @@ export default {
   created() {
     axios({
       method: 'get',
-      url: 'http://localhost:5000/store/products',
+      url: 'http://localhost:5000/admin/inventory/list/',
       headers: {'Authorization': `Bearer ${this.$store.state.authToken}`}
     }).then(response => {
       let json = response.data;
       console.log(json);
 
-      this.table.products = json['payload']['items']
+      let product_table = []
+
+      for (let item of json['payload']) {
+
+        let _tags = [];
+
+        for (let tag of item['tags']) {
+          _tags.push(tag['name']);
+        }
+
+        product_table.push({
+          'id': item['id'],
+          'name': item['name'],
+          'description': `${item['description'].substr(0,100)}..`,
+          'tags': _tags,
+          'products': item['products'].length,
+          'images': item['images'].length
+        });
+      }
+
+
+      this.table.products = product_table;
       console.log(JSON.stringify(this.table.products));
     });
   },
-  methods: {
-
-  },
+  methods: {},
   data: () => ({
     loading: true,
     selectedItemAction: "new-product",
@@ -112,6 +131,12 @@ export default {
           align: 'start',
           sortable: false,
           value: 'products'
+        },
+        {
+          text: 'Images',
+          align: 'start',
+          sortable: false,
+          value: 'images'
         }
       ],
       products: []

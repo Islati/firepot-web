@@ -14,10 +14,15 @@
           </v-row>
 
           <v-row>
-            <v-col sm="12">
+            <v-col sm="6">
               <v-text-field v-model="itemName" :rules="itemNameRules" label="Item Name"
                             placeholder="Bomb Kush; Gas Shatter"
                             required></v-text-field>
+            </v-col>
+            <v-col sm="6">
+
+              <v-text-field type="number" v-model="stock" label="Amount in Stock" append-outer-icon="mdi-add"
+                            @click:click:append-outer="this.adjustStock('i',1)" prepend-icon="mdi-remove" @click:click:prepend="this.adjustStock('d',1)"></v-text-field>
             </v-col>
           </v-row>
 
@@ -53,6 +58,43 @@
                           @keyup.tab="updateTags"
                           @paste="updateTags">
               </v-combobox>
+            </v-col>
+          </v-row>
+
+          <!-- Product Variations -->
+
+          <v-row>
+            <v-col sm="12">
+              <h3>Product Variations</h3>
+            </v-col>
+            <!-- Control buttons on the bottom.-->
+          </v-row>
+
+          <v-row v-for="product in this.products" :key="product.index" class="product-variation-field mt-5">
+            <v-col sm="1">
+              <v-icon color="primary" class="mt-5" size="16">mdi-asterisk</v-icon>
+            </v-col>
+            <v-col sm="3">
+              <v-text-field type="text" prepend-icon="mdi-rename-box" v-model="products[product.index].name" placeholder="1g" label="Display Name"></v-text-field>
+            </v-col>
+            <v-col sm="3">
+              <v-text-field type="number" v-model="products[product.index].cost" label="Cost" :rules="productCostRules" prepend-inner-icon="mdi-cash-usd-outline" placeholder="10" value="10"></v-text-field>
+            </v-col>
+            <v-col sm="3">
+              <v-text-field type="number" v-model="products[product.index].stock_weight" label="Stock Weight" :rules="stockWeightRules"></v-text-field>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col sm="12">
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn icon color="green" v-on="on" v-bind="attrs" @click="appendProductVariation">
+                    <v-icon>mdi-plus-box-outline</v-icon>
+                  </v-btn>
+                </template>
+                <span>New Product Variant</span>
+              </v-tooltip>
             </v-col>
           </v-row>
         </v-form>
@@ -92,9 +134,63 @@ export default {
       v => !!v || "Tags are required",
       v => (v && v.length > 0) || "Use at least 1 tag"
     ],
+    stockRules: [
+      v => !!v || "Stock amount is required"
+    ],
+    stock: 0,
     search: "",
+    productCostRules: [
+        v => !!v || "Product cost is required",
+        v => (v && v >= 0) || "Cost must be at least 0"
+    ],
+    stockWeightRules: [
+      v => !!v || "Stock weight is required",
+      v => (v && v >= 0) || "Weight must be at least 0"
+    ],
+    products: [
+      {
+        index: 0,
+        name: "1g",
+        stock_weight: 1,
+        cost: 10,
+      }
+    ]
   }),
   methods: {
+    appendProductVariation() {
+      let newIndex = this.products.length;
+      if (this.products.length < 1) {
+        newIndex = 0;
+      }
+
+      console.log(`Creating product variation (index: ${newIndex})`)
+
+      this.products.push({
+        index: newIndex,
+        name: 'Xg',
+        stock_weight: 1,
+        cost: 10
+      });
+    },
+    adjustStock(type, amt) {
+      switch (type) {
+        case "i":
+        case "inc":
+        case "increment":
+          this.stock += amt;
+          break;
+        case "d":
+        case "dec":
+        case "decrement":
+          this.stock -= amt;
+          if (this.stock < 0) {
+            this.stock = 0;
+          }
+          break;
+        default:
+          break;
+      }
+    },
     validateNewItemForm: function () {
       return this.$refs.newProductForm.validate();
     },
@@ -132,7 +228,8 @@ export default {
           description: this.itemDescription,
           cover_image_name: this.itemName.toLowerCase().replace(" ", "_"),
           cover_image_data: this.coverImage,
-          tags: this.tags.join(',')
+          tags: this.tags.join(','),
+          stock: this.stock,
         })
       }).then(response => {
         let json = response.data;
@@ -187,5 +284,12 @@ export default {
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
+}
+
+.product-variation-field {
+  border-color: #e3e3e3;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 50px
 }
 </style>
