@@ -255,6 +255,7 @@ export default {
           cover_image_data: this.coverImage,
           tags: this.tags.join(','),
           stock: this.stock,
+          products: this.products,
         })
       }).then(response => {
         let json = response.data;
@@ -266,6 +267,15 @@ export default {
 
         this.$toast.success(json['message']);
         console.log(json['payload'])
+
+        this.itemName = "";
+        this.itemDescription = "";
+        this.coverImage = "";
+        this.coverImageFile = null;
+        this.tags = [];
+        this.stock = 0;
+        this.product = [];
+        this.errorMessage = "";
       })
     },
     updateTags() {
