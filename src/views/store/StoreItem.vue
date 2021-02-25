@@ -1,4 +1,5 @@
 <template>
+  <!--TODO  Implement a mood bar! (Progress bars of different colors with labels & percents (showing high levels) of various elements when smoking the kush. -->
   <v-container class="d-flex justify-center">
     <v-col sm="8">
       <v-card v-if="storeItem !== null">

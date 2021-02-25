@@ -8,7 +8,7 @@
     >
       <v-container>
         <v-row>
-          <v-col sm="3">
+          <v-col sm="4">
             <div class="d-flex align-center" @click="$router.push('/home')" style="cursor: pointer;">
               <v-img
                   alt="Firepot Logo"

@@ -11,7 +11,7 @@ import Cart from './views/store/Cart';
 import OrderOverview from "./views/store/OrderOverview";
 import OrdersOverview from "@/views/store/OrdersOverview";
 import Profile from '@/views/users/Profile';
-import AdminOverview from "@/views/admin/AdminOverview";
+import AdminPanel from "@/views/admin/AdminPanel";
 
 Vue.use(Router);
 
@@ -115,7 +115,7 @@ const router = new Router({
         {
             path: '/admin',
             name: 'adminoverview',
-            component: AdminOverview,
+            component: AdminPanel,
             meta: {
                 guest: false
             }

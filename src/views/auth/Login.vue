@@ -20,7 +20,7 @@
               <v-row>
                 <v-col sm="12">
                   <v-text-field v-model="password" :rules="passwordRules" counter label="Password"
-                                clearable></v-text-field>
+                                clearable type="password"></v-text-field>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -56,7 +56,6 @@ export default {
     password: "",
     passwordRules: [
       v => !!v || "Password is required",
-      v => (v && v.length >= 8) || "Password must be atleast 8 characters"
     ]
   }),
   methods: {

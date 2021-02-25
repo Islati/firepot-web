@@ -1,6 +1,6 @@
 <template>
   <v-container class="d-flex justify-center">
-    <v-col sm="2">
+    <v-col sm="3">
       <v-row>
         <v-col sm="12">
           <v-card>
@@ -23,9 +23,9 @@
 
       </v-row>
     </v-col>
-    <v-col sm="10">
+    <v-col sm="9">
       <v-row>
-        <v-col sm="3" v-for="flower in this.$store.state.store.inventory" :key="flower.id">
+        <v-col sm="4" v-for="flower in this.$store.state.store.inventory" :key="flower.id">
           <v-card>
             <v-img height="250" :src="flower.images.cover"></v-img>
             <v-card-title>{{ flower.title }}<small class="ml-1">($10 - $140)</small></v-card-title>

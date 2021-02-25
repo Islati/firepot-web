@@ -1,5 +1,5 @@
 <template>
-  <v-container class="d-flex justify-center">
+  <v-container class="d-flex align-center">
     <v-row>
       <v-col sm="12">
         <v-card>
@@ -55,12 +55,12 @@
 <script>
 
 import axios from 'axios';
-import NewInventoryItem from "@/views/admin/NewInventoryItem";
+import CreateItemComponent from "@/views/admin/inventory/CreateItemComponent";
 
 export default {
-  name: "InventoryOverview",
+  name: "InventoryView",
   components: {
-    "new-inventory-item": NewInventoryItem
+    "new-inventory-item": CreateItemComponent
   },
   created() {
     axios({
@@ -68,7 +68,10 @@ export default {
       url: 'http://localhost:5000/store/products',
       headers: {'Authorization': `Bearer ${this.$store.state.authToken}`}
     }).then(response => {
-      this.table.products = response['items']
+      let json = response.data;
+      console.log(json);
+
+      this.table.products = json['payload']['items']
       console.log(JSON.stringify(this.table.products));
     });
   },

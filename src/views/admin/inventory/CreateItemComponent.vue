@@ -31,11 +31,11 @@
 
           <v-row>
             <v-col sm="6">
-              <v-file-input show-size label="Cover Image" ref="coverimage" v-model="coverImage"
+              <v-file-input show-size chips label="Select Cover Image" ref="coverimage" v-model="coverImageFile"
                             @change="this.previewSelectedImage"></v-file-input>
             </v-col>
             <v-col sm="6">
-              <v-img :src="coverImage" height="300" width="300"></v-img>
+              <v-img v-if="this.coverImage.length > 0" :src="coverImage" height="300" width="300"></v-img>
             </v-col>
           </v-row>
 
@@ -73,7 +73,7 @@ import {loadImageBase64} from "@/utils";
 import axios from "axios";
 
 export default {
-  name: "NewInventoryItem",
+  name: "CreateItemComponent",
   data: () => ({
     valid: true,
     errorMessage: "",
@@ -85,7 +85,8 @@ export default {
     itemDescriptionRules: [
       v => !!v || "Items require a description"
     ],
-    coverImage: " ",
+    coverImage: "",
+    coverImageFile: null,
     tags: [],
     tagRules: [
       v => !!v || "Tags are required",
@@ -95,7 +96,7 @@ export default {
   }),
   methods: {
     validateNewItemForm: function () {
-      this.$refs.newProductForm.validate();
+      return this.$refs.newProductForm.validate();
     },
     previewSelectedImage: function (file) {
       console.log(typeof (file));
@@ -108,6 +109,7 @@ export default {
     },
     submit: function (e) {
       if (!this.validateNewItemForm()) {
+        console.log("Invalid form");
         e.preventDefault();
         return;
       }
@@ -118,7 +120,7 @@ export default {
       }
 
       axios({
-        url: 'http://localhost:8080/admin/inventory/new/',
+        url: 'http://localhost:5000/admin/inventory/new/',
         method: 'POST',
         responseType: 'json',
         headers: {
@@ -129,7 +131,8 @@ export default {
           name: this.itemName,
           description: this.itemDescription,
           cover_image_name: this.itemName.toLowerCase().replace(" ", "_"),
-          cover_image_data: this.coverImage
+          cover_image_data: this.coverImage,
+          tags: this.tags.join(',')
         })
       }).then(response => {
         let json = response.data;
