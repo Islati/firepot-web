@@ -22,7 +22,8 @@
             <v-col sm="6">
 
               <v-text-field type="number" v-model="stock" label="Amount in Stock" append-outer-icon="mdi-add"
-                            @click:click:append-outer="this.adjustStock('i',1)" prepend-icon="mdi-remove" @click:click:prepend="this.adjustStock('d',1)"></v-text-field>
+                            @click:click:append-outer="this.adjustStock('i',1)" prepend-icon="mdi-remove"
+                            @click:click:prepend="this.adjustStock('d',1)"></v-text-field>
             </v-col>
           </v-row>
 
@@ -75,13 +76,22 @@
               <v-icon color="primary" class="mt-5" size="16">mdi-asterisk</v-icon>
             </v-col>
             <v-col sm="3">
-              <v-text-field type="text" prepend-icon="mdi-rename-box" v-model="products[product.index].name" placeholder="1g" label="Display Name"></v-text-field>
+              <v-text-field type="text" prepend-icon="mdi-rename-box" v-model="products[product.index].name"
+                            placeholder="1g" label="Display Name"></v-text-field>
             </v-col>
             <v-col sm="3">
-              <v-text-field type="number" v-model="products[product.index].cost" label="Cost" :rules="productCostRules" prepend-inner-icon="mdi-cash-usd-outline" placeholder="10" value="10"></v-text-field>
+              <v-text-field type="number" v-model="products[product.index].cost" label="Cost" :rules="productCostRules"
+                            prepend-inner-icon="mdi-cash-usd-outline" placeholder="10" value="10"></v-text-field>
             </v-col>
             <v-col sm="3">
-              <v-text-field type="number" v-model="products[product.index].stock_weight" label="Stock Weight" :rules="stockWeightRules"></v-text-field>
+              <v-text-field type="number" v-model="products[product.index].stock_weight" label="Stock Weight"
+                            :rules="stockWeightRules"></v-text-field>
+            </v-col>
+            <v-col sm="1" offset="1">
+              <v-btn icon color="error">
+                <v-icon color="dark" class="mt-5" size="24" @click="removeProductVariation(product.index)">mdi-minus
+                </v-icon>
+              </v-btn>
             </v-col>
           </v-row>
 
@@ -140,8 +150,8 @@ export default {
     stock: 0,
     search: "",
     productCostRules: [
-        v => !!v || "Product cost is required",
-        v => (v && v >= 0) || "Cost must be at least 0"
+      v => !!v || "Product cost is required",
+      v => (v && v >= 0) || "Cost must be at least 0"
     ],
     stockWeightRules: [
       v => !!v || "Stock weight is required",
@@ -157,6 +167,21 @@ export default {
     ]
   }),
   methods: {
+    removeProductVariation(index) {
+      let _products = [];
+
+      for (let product of this.products) {
+        if (product.index === index) {
+          continue;
+        }
+        if (product.index > 0) {
+          product.index -= 1;
+        }
+        _products.push(product);
+      }
+
+      this.products = _products;
+    },
     appendProductVariation() {
       let newIndex = this.products.length;
       if (this.products.length < 1) {
