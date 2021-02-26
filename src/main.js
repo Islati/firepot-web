@@ -7,7 +7,9 @@ import store from "./store";
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 
-Vue.use(VueToast);
+Vue.use(VueToast, {
+    position: 'top-right'
+});
 
 // import VuetifyConfirm from 'vuetify-confirm';
 

@@ -35,6 +35,10 @@
 
           <v-card-text>
             <v-data-table :headers="table.headers" :items="table.products">
+              <template v-slot:item.actions="{item}">
+                <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+                <v-icon small class="mr-2" @click="deleteItem(item)">mdi-delete</v-icon>
+              </template>
 
             </v-data-table>
           </v-card-text>
@@ -70,6 +74,29 @@ export default {
     clearInterval(this.updateInterval);
   },
   methods: {
+    editItem() {
+
+    },
+    deleteItem(item) {
+      axios({
+        method: 'POST',
+        url: 'http://localhost:5000/admin/inventory/delete-item/',
+        headers: {'Authorization': `Bearer ${this.$store.state.authToken}`, 'Content-Type': 'application/json'},
+        data: JSON.stringify({
+          id: item.id
+        })
+      }).then(response => {
+        let json = response.data;
+
+        console.log(json);
+        if (json.status !== 'success') {
+          this.$toast.error(json.message, {duration: 7000});
+          return;
+        }
+
+        this.$toast.success(json.message, {duration: 6500})
+      })
+    },
     updateTable() {
       axios({
         method: 'get',

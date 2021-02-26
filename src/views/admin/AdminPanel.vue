@@ -2,7 +2,7 @@
   <v-container class="d-flex justify-center">
 
     <v-row>
-      <v-col sm="2" class="mt-5">
+      <v-col sm="3" class="mt-5">
         <v-card>
           <v-card-title></v-card-title>
 
@@ -22,7 +22,7 @@
         </v-card>
       </v-col>
 
-      <v-col sm="10">
+      <v-col sm="9">
         <v-row v-if="selectedItem.activeView === 'inventory'">
           <inventory-view></inventory-view>
         </v-row>
