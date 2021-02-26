@@ -45,7 +45,7 @@
 
 
       <v-col sm="12" v-if="this.selectedItemAction === 'new-product'">
-        <new-inventory-item></new-inventory-item>
+        <new-inventory-item :on-item-created="this.itemCreatedCallback"></new-inventory-item>
       </v-col>
 
     </v-row>
@@ -63,42 +63,53 @@ export default {
     "new-inventory-item": CreateItemComponent
   },
   created() {
-    axios({
-      method: 'get',
-      url: 'http://localhost:5000/admin/inventory/list/',
-      headers: {'Authorization': `Bearer ${this.$store.state.authToken}`}
-    }).then(response => {
-      let json = response.data;
-      console.log(json);
+    this.updateInterval = setInterval(this.updateTable, 5000)
+    this.updateTable();
+  },
+  destroyed() {
+    clearInterval(this.updateInterval);
+  },
+  methods: {
+    updateTable() {
+      axios({
+        method: 'get',
+        url: 'http://localhost:5000/admin/inventory/list/',
+        headers: {'Authorization': `Bearer ${this.$store.state.authToken}`}
+      }).then(response => {
+        let json = response.data;
+        console.log(json);
 
-      let product_table = []
+        let product_table = []
 
-      for (let item of json['payload']) {
+        for (let item of json['payload']) {
 
-        let _tags = [];
+          let _tags = [];
 
-        for (let tag of item['tags']) {
-          _tags.push(tag['name']);
+          for (let tag of item['tags']) {
+            _tags.push(tag['name']);
+          }
+
+          product_table.push({
+            'id': item['id'],
+            'name': item['name'],
+            'description': `${item['description'].substr(0, 100)}..`,
+            'tags': _tags,
+            'products': item['products'].length,
+            'images': item['images'].length
+          });
         }
 
-        product_table.push({
-          'id': item['id'],
-          'name': item['name'],
-          'description': `${item['description'].substr(0,100)}..`,
-          'tags': _tags,
-          'products': item['products'].length,
-          'images': item['images'].length
-        });
-      }
 
-
-      this.table.products = product_table;
-      console.log(JSON.stringify(this.table.products));
-    });
+        this.table.products = product_table;
+      });
+    },
+    itemCreatedCallback() {
+      this.updateTable();
+    }
   },
-  methods: {},
   data: () => ({
     loading: true,
+    updateInterval: null,
     selectedItemAction: "new-product",
     table: {
       headers: [
@@ -137,6 +148,12 @@ export default {
           align: 'start',
           sortable: false,
           value: 'images'
+        },
+        {
+          text: 'Actions',
+          align: 'start',
+          sortable: false,
+          value: 'actions'
         }
       ],
       products: []

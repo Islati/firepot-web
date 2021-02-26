@@ -105,6 +105,15 @@
                 </template>
                 <span>New Product Variant</span>
               </v-tooltip>
+
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn icon color="green" v-on="on" v-bind="attrs" @click="breakdownOunce">
+                    <v-icon>mdi-circle-expand</v-icon>
+                  </v-btn>
+                </template>
+                <span>Break down an OZ</span>
+              </v-tooltip>
             </v-col>
           </v-row>
         </v-form>
@@ -126,6 +135,7 @@ import axios from "axios";
 
 export default {
   name: "CreateItemComponent",
+  props: {onItemCreated: Function},
   data: () => ({
     valid: true,
     errorMessage: "",
@@ -181,6 +191,40 @@ export default {
       }
 
       this.products = _products;
+    },
+    breakdownOunce() {
+      this.products = [
+        {
+          index: 0,
+          name: "1g",
+          stock_weight: 1,
+          cost: 10
+        },
+        {
+          index: 1,
+          name: "3.5g",
+          stock_weight: 3.5,
+          cost: 25
+        },
+        {
+          index: 2,
+          name: "7g",
+          stock_weight: 7,
+          cost: 40
+        },
+        {
+          index: 3,
+          name: "14g",
+          stock_weight: 14,
+          cost: 70
+        },
+        {
+          index: 4,
+          name: "28g",
+          stock_weight: 28,
+          cost: 130
+        }
+      ];
     },
     appendProductVariation() {
       let newIndex = this.products.length;
@@ -240,6 +284,8 @@ export default {
         return;
       }
 
+      let vm = this;
+
       axios({
         url: 'http://localhost:5000/admin/inventory/new/',
         method: 'POST',
@@ -276,6 +322,8 @@ export default {
         this.stock = 0;
         this.product = [];
         this.errorMessage = "";
+
+        vm.onItemCreated();
       })
     },
     updateTags() {
