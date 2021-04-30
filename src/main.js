@@ -6,10 +6,13 @@ import store from "./store";
 
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
+import VueCookies from "vue-cookies";
 
 Vue.use(VueToast, {
     position: 'top-right'
 });
+
+Vue.use(VueCookies);
 
 // import VuetifyConfirm from 'vuetify-confirm';
 

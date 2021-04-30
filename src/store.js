@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VueCookies from "vue-cookies";
 
 // import {config} from "config"
 
@@ -14,7 +15,7 @@ export default new Vuex.Store({
             inventory: [
                 {
                     id: 102, //Item ID <- Not PRODUCT ID
-                    title: "Sundae Driver",
+                    title: "Nuken",
                     description: "Beautiful crystal nugs with hues of rich blue, green, and orange. Each of these babies packs 23% THC & 1.5% CBD.",
                     images: {
                         cover: require("./assets/sundae-driver.jpg"),
@@ -28,8 +29,8 @@ export default new Vuex.Store({
                     products: [
                         {
                             id: 102,
-                            name: "1g",
-                            cost: 10
+                            name: "g",
+                            cost: 8
                         },
 
                         {
@@ -41,18 +42,18 @@ export default new Vuex.Store({
                         {
                             id: 104,
                             name: "7g",
-                            cost: 45
+                            cost: 40
                         },
 
                         {
                             id: 105,
                             name: "14g",
-                            cost: 80
+                            cost: 70
                         },
                         {
                             id: 106,
-                            name: "28g",
-                            cost: 140
+                            name: "Oz",
+                            cost: 120
                         }
                     ]
                 },
@@ -72,7 +73,7 @@ export default new Vuex.Store({
                     products: [
                         {
                             id: 107,
-                            name: "1g",
+                            name: "g",
                             cost: 10
                         },
 
@@ -95,7 +96,7 @@ export default new Vuex.Store({
                         },
                         {
                             id: 111,
-                            name: "28g",
+                            name: "Oz",
                             cost: 140
                         }
                     ]
@@ -149,29 +150,30 @@ export default new Vuex.Store({
     },
     getters: {
         isAgeVerified: (state) => {
-            return state.viewerAge !== null && state.viewerAge >= 19;
+            let age = 0;
+            if (Vue.$cookies.isKey('viewerAge')) {
+                age = Vue.$cookies.get('viewerAge');
+                console.log(`Retrieved user age from cookies ${age}`)
+            }
+
+            if (state.viewerAge !== null) {
+                age = state.viewerAge
+            }
+
+            return age >= 19;
         }
     },
     mutations: {
-        setViewerAge(state,age) {
+        setViewerAge(state, age) {
             state.viewerAge = age;
+            Vue.$cookies.set('viewerAge', age, '24h');
         }
     },
     actions: {
         setAge({commit}, age) {
             console.log(`Dispatching commit:: setViewerAge(${age}) `);
             commit('setViewerAge', age);
-        },
-        removeFromCart({commit}, productId) {
-            console.log(`Dispatching commit:: removeCartItem x Product ID ${productId}`);
-            commit(`removeCartItem`, productId);
-        },
-        submitOrder(context) {
-            //todo submit call to backend.
-            //todo create endpoint which calls this method.
-            console.log(`Submitting Order with cart ${JSON.stringify(context.state.cart)}`)
-            // context.commit('clearCart'); //todo reimplement this when the cart is saved on the backend.
-        },
+        }
     }
 
 })

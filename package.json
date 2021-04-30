@@ -11,6 +11,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
+    "vue-cookies": "^1.7.4",
     "vue-router": "^3.4.9",
     "vue-toast-notification": "^0.6.0",
     "vuelidate": "^0.7.6",
@@ -44,7 +45,10 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-unused-vars": "off",
+      "no-unused-expressions": "off"
+    }
   },
   "browserslist": [
     "> 1%",

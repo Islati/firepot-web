@@ -24,34 +24,43 @@
       </v-row>
     </v-col>
     <v-col sm="9">
-      <v-row v-for="flower in this.$store.state.store.inventory" :key="flower.id">
-
-      </v-row>
-
-      <v-row>
-        <v-col sm="4" v-for="flower in this.$store.state.store.inventory" :key="flower.id">
-          <v-card>
-            <v-img height="250" :src="flower.images.cover"></v-img>
-            <v-card-title>{{ flower.title }}<small class="ml-1">($10 - $140)</small></v-card-title>
-            <v-card-text>
-              <div>{{ flower.description }}</div>
-            </v-card-text>
-            <v-card-text>
-              <v-chip v-for="tag in flower.tags" :key="tag" color="green" text-color="white" class="mx-1">{{
+      <v-row v-for="flower in this.$store.state.store.inventory" :key="flower.id"
+             class="elevation-2 my-2 rounded">
+        <v-col sm="3">
+          <v-img max-width="250" max-height="250" :lazy-src="flower.images.cover"
+                 :src="flower.images.cover"></v-img>
+        </v-col>
+        <v-col sm="8">
+          <v-row>
+            <p class="text-h5 font-weight-light">{{ flower.title }}
+              <span
+                  class="text-subtitle-2">(${{ flower.products[0].cost }}/{{
+                  flower.products[0].name
+                }} - ${{
+                  flower.products[flower.products.length - 1].cost
+                }}/{{ flower.products[flower.products.length - 1].name }})</span>
+            </p>
+          </v-row>
+          <v-row>
+            <v-col sm="12">
+              <p class="text-caption">{{ flower.description }}</p>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col sm="8">
+              <v-chip v-for="tag in flower.tags" :key="tag" color="light-green" text-color="white" class="mx-1">{{
                   tag
                 }}
               </v-chip>
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-card-actions>
-              <v-btn color="deep-purple darken-1" text
-                     @click="$router.push({name: 'store-item', params: {itemId: flower.id}})">View
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col sm="2">
+              <v-btn rounded outlined text color="purple" :to="`/store/item/${flower.id}`">View
               </v-btn>
-            </v-card-actions>
-
-          </v-card>
+            </v-col>
+          </v-row>
         </v-col>
-
       </v-row>
     </v-col>
 
@@ -59,10 +68,13 @@
 </template>
 
 <script>
+import VueCookies from 'vue-cookies';
+
 export default {
   name: "StoreOverview",
   data: () => ({}),
-  computed: {}
+  computed: {},
+  methods: {}
 }
 </script>
 

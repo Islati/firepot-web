@@ -6,6 +6,9 @@ import store from "./store";
 import StoreOverview from "./views/store/StoreOverview";
 import StoreItem from "./views/store/StoreItem";
 import AgeVerification from "@/views/auth/AgeVerification";
+import OrderingInfo from "@/views/info/OrderingInfo";
+
+import VueCookies from "vue-cookies";
 
 Vue.use(Router);
 
@@ -17,6 +20,8 @@ TODO:
 let entryUrl = null;
 
 let ageGuard = async (to, from, next) => {
+
+
     if (store.getters.isAgeVerified) {
         if (entryUrl) {
             const url = entryUrl;
@@ -64,6 +69,15 @@ const router = new Router({
             },
             beforeEnter: ageGuard
 
+        },
+        {
+            path: '/ordering',
+            name: 'ordering',
+            component: OrderingInfo,
+            meta: {
+                guest: false
+            },
+            beforeEnter: ageGuard
         }
     ]
 });
