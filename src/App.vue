@@ -19,7 +19,7 @@
                   width="40"
                   @click="this.$router.push('/home');"
               />
-              <h1>FirePot <small v-if="this.$store.getters.isAdmin">Admin</small></h1>
+              <h1>FirePot</h1>
             </div>
           </v-col>
 

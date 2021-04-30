@@ -24,6 +24,10 @@
       </v-row>
     </v-col>
     <v-col sm="9">
+      <v-row v-for="flower in this.$store.state.store.inventory" :key="flower.id">
+
+      </v-row>
+
       <v-row>
         <v-col sm="4" v-for="flower in this.$store.state.store.inventory" :key="flower.id">
           <v-card>
