@@ -23,9 +23,10 @@
             <div class="font-weight-bold text-h5">How to place your order.</div>
           </v-row>
           <v-row class="justify-center mt-2">
-            <p>Text <span class="font-italic" style="background-color: #efefef">+1 (709) 536 9785</span> with your order
+            <p>Text <span class="font-italic" style="background-color: #efefef">+1 (709) 500 6995</span> with your order
               using the template above.</p>
             <p class="subtitle-2 font-weight-light">We will provide further instructions via text messaging.</p>
+            <p class="subtitle-2 font-weight-light font-italic">Thank you for your patience.</p>
           </v-row>
 
           <v-row class="justify-center mt-2">
