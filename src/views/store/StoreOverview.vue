@@ -9,14 +9,20 @@
               <v-list>
                 <v-list-item-group>
                   <v-list-item @click="selectFilter('all')">
-                    <v-list-item-title>All</v-list-item-title>
+                    <v-list-item-content>
+                      <v-list-item-title>All</v-list-item-title>
+                    </v-list-item-content>
                   </v-list-item>
                   <v-divider class="mt-2"></v-divider>
                   <v-list-item @click="selectFilter('flower')">
-                    <v-list-item-title>Flower</v-list-item-title>
+                    <v-list-item-content>
+                      <v-list-item-title>Flower</v-list-item-title>
+                    </v-list-item-content>
                   </v-list-item>
                   <v-list-item @click="selectFilter('concentrate')">
-                    <v-list-item-title>Concentrates</v-list-item-title>
+                    <v-list-item-content>
+                      <v-list-item-title>Concentrates</v-list-item-title>
+                    </v-list-item-content>
                   </v-list-item>
                 </v-list-item-group>
               </v-list>
