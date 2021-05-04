@@ -25,10 +25,25 @@
               </v-card-text>
               <v-divider></v-divider>
               <v-card-text>
-                <p class="text-subtitle-1">Pricing Breakdown</p>
-                <ul>
-                  <li v-for="product in this.priceSelection" :key="product.index">{{ product }}</li>
-                </ul>
+                <v-row>
+                  <v-col sm="12">
+                    <p class="text-subtitle-1">Pricing Breakdown</p>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <ul>
+                    <li v-for="product in this.priceSelection" :key="product.index">{{ product }}</li>
+                  </ul>
+                </v-row>
+                <v-row>
+                  <v-col offset-sm="8" sm="4">
+                    <OrderingInfoModal @close="orderInfoModalVisible = false" :visible="orderInfoModalVisible"
+                                       maxWidth="800px"></OrderingInfoModal>
+                    <v-btn type="button" text outlined color="info" @click="orderInfoModalVisible = true">
+                      Order
+                    </v-btn>
+                  </v-col>
+                </v-row>
               </v-card-text>
             </v-col>
           </v-row>
@@ -43,13 +58,17 @@
 </template>
 
 <script>
+import OrderingInfoModal from "@/views/store/OrderingInfoModal";
+
 export default {
   name: "StoreItem",
+  components: {OrderingInfoModal},
   data: () => ({
     activeCarouselItem: 0,
     selectedProductItem: 0,
     selectedProductId: 0,
-    storeItem: null
+    storeItem: null,
+    orderInfoModalVisible: false
   }),
   methods: {
     selectProduct: function (id) {
@@ -74,6 +93,14 @@ export default {
     }
   },
   computed: {
+    showOrderModal: {
+      get() {
+        return this.orderInfoModalVisible;
+      },
+      set(value) {
+        this.orderInfoModalVisible = value;
+      }
+    },
     selectedProductPrice() {
       let cost = "N/A"
       for (let product of this.storeItem.products) {

@@ -127,19 +127,19 @@ export default new Vuex.Store({
                         {
                             id: 112,
                             name: "g",
-                            cost: 8
+                            cost: 10
                         },
 
                         {
                             id: 113,
                             name: "3.5g",
-                            cost: 20
+                            cost: 25
                         },
 
                         {
                             id: 114,
                             name: "7g",
-                            cost: 40
+                            cost: 45
                         },
 
                         {
@@ -150,7 +150,7 @@ export default new Vuex.Store({
                         {
                             id: 116,
                             name: "28g",
-                            cost: 115
+                            cost: 125
                         }
                     ]
                 },
@@ -174,19 +174,19 @@ export default new Vuex.Store({
                         {
                             id: 117,
                             name: "g",
-                            cost: 8
+                            cost: 10
                         },
 
                         {
                             id: 118,
                             name: "3.5g",
-                            cost: 20
+                            cost: 25
                         },
 
                         {
                             id: 119,
                             name: "7g",
-                            cost: 40
+                            cost: 45
                         },
 
                         {
@@ -197,7 +197,7 @@ export default new Vuex.Store({
                         {
                             id: 121,
                             name: "28g",
-                            cost: 115
+                            cost: 125
                         }
                     ]
                 },
@@ -221,19 +221,19 @@ export default new Vuex.Store({
                         {
                             id: 122,
                             name: "g",
-                            cost: 8
+                            cost: 10
                         },
 
                         {
                             id: 123,
                             name: "3.5g",
-                            cost: 20
+                            cost: 25
                         },
 
                         {
                             id: 124,
                             name: "7g",
-                            cost: 40
+                            cost: 45
                         },
 
                         {
@@ -244,7 +244,7 @@ export default new Vuex.Store({
                         {
                             id: 126,
                             name: "oz",
-                            cost: 115
+                            cost: 125
                         }
                     ]
                 },
@@ -268,19 +268,19 @@ export default new Vuex.Store({
                         {
                             id: 127,
                             name: "g",
-                            cost: 8
+                            cost: 10
                         },
 
                         {
                             id: 128,
                             name: "3.5g",
-                            cost: 20
+                            cost: 25
                         },
 
                         {
                             id: 129,
                             name: "7g",
-                            cost: 40
+                            cost: 45
                         },
 
                         {
@@ -291,7 +291,7 @@ export default new Vuex.Store({
                         {
                             id: 131,
                             name: "oz",
-                            cost: 115
+                            cost: 125
                         }
                     ]
                 },
@@ -315,19 +315,19 @@ export default new Vuex.Store({
                         {
                             id: 132,
                             name: "g",
-                            cost: 8
+                            cost: 10
                         },
 
                         {
                             id: 133,
                             name: "3.5g",
-                            cost: 20
+                            cost: 25
                         },
 
                         {
                             id: 134,
                             name: "7g",
-                            cost: 40
+                            cost: 45
                         },
 
                         {
@@ -337,8 +337,8 @@ export default new Vuex.Store({
                         },
                         {
                             id: 136,
-                            name: "28g",
-                            cost: 115
+                            name: "oz",
+                            cost: 125
                         }
                     ]
                 },
@@ -371,7 +371,6 @@ export default new Vuex.Store({
             let age = 0;
             if (Vue.$cookies.isKey('viewerAge')) {
                 age = Vue.$cookies.get('viewerAge');
-                console.log(`Retrieved user age from cookies ${age}`)
             }
 
             if (state.viewerAge !== null) {
@@ -389,7 +388,6 @@ export default new Vuex.Store({
     },
     actions: {
         setAge({commit}, age) {
-            console.log(`Dispatching commit:: setViewerAge(${age}) `);
             commit('setViewerAge', age);
         }
     }

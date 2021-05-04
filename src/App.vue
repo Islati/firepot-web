@@ -26,7 +26,8 @@
           <v-spacer></v-spacer>
 
           <v-col sm="3" class="mt-3">
-            <v-btn rounded color="info" active-class="" text to="ordering">How to Order</v-btn>
+            <OrderingInfoModal @close="orderingInfoModalVisible = false" :visible="orderingInfoModalVisible" max-width="800px"></OrderingInfoModal>
+            <v-btn rounded color="info" active-class="" text @click="orderingInfoModalVisible = true">How to Order</v-btn>
           </v-col>
 
 
@@ -114,12 +115,23 @@
 
 <script>
 
+import OrderingInfoModal from "@/views/store/OrderingInfoModal";
 export default {
   name: 'App',
-
+  components: {OrderingInfoModal},
   data: () => ({
     selectedLoginItem: -1,
+    orderModalVisible: false
   }),
-  computed: {},
+  computed: {
+    orderingInfoModalVisible: {
+      get() {
+        return this.orderModalVisible;
+      },
+      set(value) {
+        this.orderModalVisible = value;
+      }
+    }
+  },
 }
 </script>
