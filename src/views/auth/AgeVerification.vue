@@ -1,18 +1,18 @@
 <template>
   <v-container class="d-flex justify-center">
     <v-row class="justify-center">
-      <v-col sm="8">
+      <v-col md="8" sm="12">
         <v-form ref="form" v-model="valid" @submit.prevent="submit" lazy-validation>
           <v-card>
             <v-card-text>
 
 
-              <v-row justify="center">
-                <h2>Before you see the goods, confirm your birthday.</h2>
+              <v-row class="justify-center">
+                <h2 class="text-center">Before you see the goods, confirm your birthday.</h2>
               </v-row>
-              <v-row justify="center">
+              <v-row class="justify-center">
                 <span
-                    class="subtitle-1"><i>Please note you will be required to provide Photo ID for your first order.</i></span>
+                    class="subtitle-1 text-center"><i>Please note you will be required to provide Photo ID for your first order.</i></span>
               </v-row>
 
               <v-row justify="center" v-if="errorMessage.length > 0" class="mt-2 mb-2">
@@ -22,7 +22,7 @@
               </v-row>
 
               <v-row>
-                <v-col sm="3" offset="1">
+                <v-col sm="4" offset-md="1">
                   <v-select :items="dayItems" v-model="selectedDay" label="Day">
 
                   </v-select>
@@ -30,14 +30,14 @@
                 <v-col sm="4">
                   <v-select :items="monthItems" v-model="selectedMonth" label="Month"></v-select>
                 </v-col>
-                <v-col sm="3">
+                <v-col sm="4">
                   <v-select :items="yearItems" v-model="selectedYear" label="Year"></v-select>
                 </v-col>
               </v-row>
             </v-card-text>
 
             <v-card-actions>
-              <v-row justify="center">
+              <v-row class="justify-center">
                 <v-btn outlined rounded text color="success" type="submit">Proceed</v-btn>
               </v-row>
             </v-card-actions>
@@ -96,12 +96,17 @@ export default {
       let userAge = this.validateAge()
       this.$store.dispatch('setAge', userAge)
 
-      if (userAge < 19) {
-        this.errorMessage = "Sorry, you must be 19 years or older to enter."
-        return
+      if (userAge == -1) {
+        this.errorMessage = "You must enter your age for verification."
+        return;
       }
 
-      this.$router.push('/');
+      if (userAge < 19) {
+        this.errorMessage = "Sorry, you must be 19 years or older to enter."
+        return;
+      }
+
+      this.$router.push('/').catch(e => {});
     },
     validateAge() {
       /**

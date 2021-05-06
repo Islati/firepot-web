@@ -2,13 +2,13 @@
   <v-app>
     <v-app-bar
         app
-        absolute
+
         color="#292928"
         dark
     >
       <v-container>
         <v-row>
-          <v-col sm="4">
+          <v-col md="4" sm="2">
             <div class="d-flex align-center" @click="logoClick" style="cursor: pointer;">
               <v-img
                   alt="Firepot Logo"
@@ -23,12 +23,12 @@
             </div>
           </v-col>
 
-          <v-spacer></v-spacer>
+          <v-spacer v-if="!$vuetify.breakpoint.mobile"></v-spacer>
 
-          <v-col sm="3" class="mt-3" v-if="this.$store.getters.isAgeVerified">
+          <v-col sm="3" md="3" offset-md="1" class="mt-2" v-if="this.$store.getters.isAgeVerified">
             <OrderingInfoModal @close="orderingInfoModalVisible = false" :visible="orderingInfoModalVisible"
-                               max-width="650px"></OrderingInfoModal>
-            <v-btn rounded color="info" active-class="" text @click="showOrderInfoModal">How to Order</v-btn>
+                               :max-width="$vuetify.breakpoint.mobile ? '95%' : '650px'"></OrderingInfoModal>
+            <v-btn rounded color="info" active-class="" text @click="showOrderInfoModal">Ordering</v-btn>
           </v-col>
 
         </v-row>

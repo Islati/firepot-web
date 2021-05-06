@@ -25,7 +25,4 @@ export default {
 </script>
 
 <style scoped>
-.text-template {
-  background-color: #efefef
-}
 </style>
