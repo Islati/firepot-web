@@ -13,7 +13,7 @@
                       <v-list-item-title>All</v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
-                  <v-divider class="mt-2"></v-divider>
+                  <v-divider class="mt-2 mb-1"></v-divider>
                   <v-list-item @click="selectFilter('flower')">
                     <v-list-item-content>
                       <v-list-item-title>Flower</v-list-item-title>
@@ -22,6 +22,28 @@
                   <v-list-item @click="selectFilter('concentrate')">
                     <v-list-item-content>
                       <v-list-item-title>Concentrates</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item @click="selectFilter('edibles')">
+                    <v-list-item-content>
+                      <v-list-item-title>Edibles</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-divider class="mt-2 mb-1"></v-divider>
+
+                  <v-list-item @click="selectFilter('indica')">
+                    <v-list-item-content>
+                      <v-list-item-title>Indica</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item @click="selectFilter('sativa')">
+                    <v-list-item-content>
+                      <v-list-item-title>Sativa</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item @click="selectFilter('hybrid')">
+                    <v-list-item-content>
+                      <v-list-item-title>Hybrid</v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                 </v-list-item-group>
@@ -43,7 +65,7 @@
           <v-row>
             <p class="text-h5 font-weight-light">{{ item.title }}
               <span v-if="item.products.length > 1"
-                  class="text-subtitle-2">(${{ item.products[0].cost }}/{{
+                    class="text-subtitle-2">(${{ item.products[0].cost }}/{{
                   item.products[0].name
                 }} - ${{
                   item.products[item.products.length - 1].cost
@@ -57,7 +79,7 @@
           </v-row>
           <v-row>
             <v-col sm="12">
-              <p class="text-caption">{{ item.description}}</p>
+              <p class="text-caption">{{ item.description }}</p>
             </v-col>
           </v-row>
           <v-row>
@@ -89,7 +111,7 @@ export default {
   name: "StoreOverview",
   data: () => ({
     selectedFilter: 'all',
-    validFilters: ['all','flower','indica','sativa','concentrate']
+    validFilters: ['all', 'flower', 'indica', 'sativa', 'concentrate']
   }),
   computed: {
     selectedInventoryItems() {
@@ -99,7 +121,7 @@ export default {
         return this.$store.state.store.inventory;
       }
 
-      for(let item of this.$store.state.store.inventory) {
+      for (let item of this.$store.state.store.inventory) {
         let item_tags = item.tags;
 
         if (!item_tags.includes(capitalize(this.selectedFilter))) {

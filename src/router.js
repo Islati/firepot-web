@@ -3,10 +3,11 @@ import Router from 'vue-router';
 import store from "./store";
 
 /* Views */
-import StoreOverview from "./views/store/StoreOverview";
-import StoreItem from "./views/store/StoreItem";
+import StoreOverview from "@/views/store/StoreOverview";
+import StoreItem from "@/views/store/StoreItem";
 import AgeVerification from "@/views/auth/AgeVerification";
 import OrderingInfo from "@/views/store/OrderingInfo";
+import PageNotFound from "@/views/PageNotFound";
 
 Vue.use(Router);
 
@@ -17,30 +18,59 @@ TODO:
 
 let entryUrl = null;
 
-let ageGuard = async (to, from, next) => {
-    console.log(`To path: -> ${to.path}`);
-
-    if (store.getters.isAgeVerified) {
-        if (entryUrl) {
-            const url = entryUrl;
-            entryUrl = null;
-            return next(url);
-        } else {
-            next();
+/**
+ * Verification guard that redirects verified users to store page.
+ * @param to
+ * @param from
+ * @param next
+ * @returns {Promise<boolean>}
+ */
+let verifyRouteRedirect = async (to, from, next) => {
+    try {
+        if (to.path.includes('/verify') || to.path.includes('/login')) {
+            if (store.getters.isAgeVerified) {
+                next('/store')
+                return true;
+            } else {
+                next();
+                return true;
+            }
         }
-    } else {
-        entryUrl = to.path;
-        next("/verify");
+        next()
+        return true;
+    } catch (e) {
+        return false;
     }
 };
 
+/**
+ * Verification guard that doesn't allow un-authorized users.
+ *
+ * Checks if the user has their age verification requirement met before redirecting.
+ * @param to
+ * @param from
+ * @param next
+ * @returns {Promise<boolean>}
+ */
+let ageVerificationGuard = async (to, from, next) => {
+
+    try {
+        if (store.getters.isAgeVerified) {
+            next();
+            return true;
+        } else {
+            entryUrl = to.path;
+            next("/verify");
+            return false;
+        }
+    } catch (e) {
+        return false;
+    }
+};
+
+
 const router = new Router({
     routes: [
-        {
-            path: ':/pathMatch(.*)*',
-            name: 'not-found',
-            redirect: '/store',
-        },
         {
             path: '/verify',
             alias: '/login',
@@ -49,6 +79,7 @@ const router = new Router({
             meta: {
                 guest: true
             },
+            beforeEnter: verifyRouteRedirect
         },
         {
             path: "/store",
@@ -58,7 +89,7 @@ const router = new Router({
             meta: {
                 guest: false
             },
-            beforeEnter: ageGuard
+            beforeEnter: ageVerificationGuard
         },
         {
             path: "/store/item/:itemId",
@@ -70,7 +101,7 @@ const router = new Router({
             meta: {
                 guest: false
             },
-            beforeEnter: ageGuard
+            beforeEnter: ageVerificationGuard
 
         },
         {
@@ -80,7 +111,12 @@ const router = new Router({
             meta: {
                 guest: false
             },
-            beforeEnter: ageGuard
+            beforeEnter: ageVerificationGuard
+        },
+        {
+            path: "*",
+            // component: PageNotFound
+            redirect: '/store',
         }
     ]
 });

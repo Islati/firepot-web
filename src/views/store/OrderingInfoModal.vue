@@ -1,6 +1,6 @@
 <template>
-  <v-dialog v-model="modalVisible" :max-width="this.maxWidth ? this.maxWidth : '500px'">
-    <OrderInfoCard :visible="modalVisible"></OrderInfoCard>
+  <v-dialog v-model="modalVisible" :max-width="this.maxWidth ? this.maxWidth : '80%'">
+    <OrderInfoCard :visible="modalVisible" :closeMethod="closeModal"></OrderInfoCard>
   </v-dialog>
 </template>
 
@@ -12,6 +12,11 @@ export default {
   components: {OrderInfoCard},
   props: ['visible', 'maxWidth'],
   data: () => ({}),
+  methods: {
+    closeModal() {
+      this.modalVisible = false;
+    }
+  },
   computed: {
     modalVisible: {
       get() {

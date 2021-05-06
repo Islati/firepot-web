@@ -9,6 +9,8 @@
 
               <v-row justify="center">
                 <h2>Before you see the goods, confirm your birthday.</h2>
+              </v-row>
+              <v-row justify="center">
                 <span
                     class="subtitle-1"><i>Please note you will be required to provide Photo ID for your first order.</i></span>
               </v-row>
@@ -92,7 +94,7 @@ export default {
       }
 
       let userAge = this.validateAge()
-      this.$store.dispatch('setAge',userAge)
+      this.$store.dispatch('setAge', userAge)
 
       if (userAge < 19) {
         this.errorMessage = "Sorry, you must be 19 years or older to enter."

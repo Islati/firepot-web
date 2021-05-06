@@ -1,18 +1,18 @@
 <template>
   <!--TODO  Implement a mood bar! (Progress bars of different colors with labels & percents (showing high levels) of various elements when smoking the kush. -->
   <v-container class="d-flex justify-center">
-    <v-col sm="8">
+    <v-col sm="10">
       <v-row>
         <v-card v-if="storeItem !== null">
           <v-row>
-            <v-col sm="4">
+            <v-col sm="6">
               <v-carousel v-model="activeCarouselItem">
                 <v-carousel-item v-for="(galleryImage, i) in storeItem.images.gallery" :key="i" :src="galleryImage.src"
                                  transition="fade-transition" reverse-transition="fade-transition"></v-carousel-item>
               </v-carousel>
             </v-col>
 
-            <v-col sm="8">
+            <v-col sm="6">
               <v-card-title>{{ storeItem.title }}</v-card-title>
               <v-card-text>
                 <div>{{ storeItem.description }}</div>
@@ -38,7 +38,7 @@
                 <v-row>
                   <v-col offset-sm="8" sm="4">
                     <OrderingInfoModal @close="orderInfoModalVisible = false" :visible="orderInfoModalVisible"
-                                       maxWidth="800px"></OrderingInfoModal>
+                                       maxWidth="650px"></OrderingInfoModal>
                     <v-btn type="button" text outlined color="info" @click="orderInfoModalVisible = true">
                       Order
                     </v-btn>

@@ -1,11 +1,11 @@
 <template>
-  <v-card class="justify-center">
+  <v-card class="justify-center" style="overflow-x: hidden">
     <v-card-title class="justify-center"><h3>Ordering from FirePot</h3></v-card-title>
     <v-divider></v-divider>
 
     <v-row class="justify-center mt-2 mb-2">
       <v-alert type="info" color="info" border="left">Deliveries for <i>Grand Falls - Windsor</i> are offered between
-        8AM - 9PM. <br/> You will be required to provide Photo ID on your first order.
+        8AM - 9PM. <br/> You will be required to provide a picture of your Photo ID on your first order.
       </v-alert>
     </v-row>
 
@@ -30,17 +30,25 @@
 
     </v-row>
 
-    <v-row class="justify-center mt-2">
-      <p class="subtitle-2 font-weight-light">We will provide further instructions via text messaging.</p>
-      <p class="subtitle-2 font-weight-light font-italic">Thank you for your patience.</p>
+    <v-row class="justify-center mt-1">
+      <p class="subtitle-2 font-weight-light">Our delivery drivers do not handle transactions, and will not accept cash or eTransfer at their window.</p>
+      <p class="subtitle-2 font-weight-light">All orders must be paid prior to delivery to avoid hassle & danger to our drivers</p>
     </v-row>
 
-    <v-row class="justify-center mt-2">
+    <v-row class="justify-center">
+      <p class="subtitle-2 font-weight-light">Thank you for your understanding</p>
+    </v-row>
+
+    <v-row class="justify-center">
       <v-img :src="this.interacImage" max-height="50" contain></v-img>
     </v-row>
 
-    <v-row class="justify-center mt-2">
+    <v-row class="justify-center">
       <p class="text-h6 font-weight-light">Interac eTransfer only for payments.</p>
+    </v-row>
+
+    <v-row class="justify-center pb-2">
+      <v-btn type="success" outlined rounded text @click="$props.closeMethod">Okay!</v-btn>
     </v-row>
   </v-card>
 
@@ -51,6 +59,7 @@ import interacImage from '@/assets/interac.png'
 
 export default {
   name: "OrderInfoCard",
+  props: ['closeMethod'],
   data: () => ({
     interacImage: interacImage
   })
