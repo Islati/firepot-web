@@ -22,9 +22,8 @@
               </v-row>
 
               <v-row>
-                <v-col sm="4" offset-md="1">
+                <v-col sm="4">
                   <v-select :items="dayItems" v-model="selectedDay" label="Day">
-
                   </v-select>
                 </v-col>
                 <v-col sm="4">

@@ -13,7 +13,7 @@
 
       <v-col sm="12" v-for="item in this.selectedInventoryItems" :key="item.id"
              class="mt-2 mb-2 elevation-2 rounded" @click="openStoreItem(item.id)">
-        <v-col sm="12">
+        <v-col sm="12" v-if="item.stocked === true">
           <v-row class="justify-center">
             <h4>{{ item.title }}</h4>
           </v-row>
@@ -110,46 +110,49 @@
       <v-col sm="8">
         <v-row v-for="item in this.selectedInventoryItems" :key="item.id"
                class="elevation-2 my-2 rounded">
-          <v-col sm="3">
-            <v-img max-width="250" max-height="250" :lazy-src="item.images.cover"
-                   :src="item.images.cover"></v-img>
-          </v-col>
-          <v-col sm="8">
-            <v-row>
-              <p class="text-h5 font-weight-light">{{ item.title }}
-                <span v-if="item.products.length > 1"
-                      class="text-subtitle-2">(${{ item.products[0].cost }}/{{
-                    item.products[0].name
-                  }} - ${{
-                    item.products[item.products.length - 1].cost
-                  }}/{{ item.products[item.products.length - 1].name }})</span>
-                <span v-else class="text-subtitle-2">
+          <template v-if="item.stocked === true">
+            <v-col sm="3">
+              <v-img max-width="250" max-height="250" :lazy-src="item.images.cover"
+                     :src="item.images.cover"></v-img>
+            </v-col>
+            <v-col sm="8">
+              <v-row>
+                <p class="text-h5 font-weight-light">{{ item.title }}
+                  <span v-if="item.products.length > 1"
+                        class="text-subtitle-2">(${{ item.products[0].cost }}/{{
+                      item.products[0].name
+                    }} - ${{
+                      item.products[item.products.length - 1].cost
+                    }}/{{ item.products[item.products.length - 1].name }})</span>
+                  <span v-else class="text-subtitle-2">
                 (${{ item.products[0].cost }}/{{
-                    item.products[0].name
-                  }})
+                      item.products[0].name
+                    }})
               </span>
-              </p>
-            </v-row>
-            <v-row>
-              <v-col sm="12">
-                <p class="text-caption">{{ item.description }}</p>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col sm="8">
-                <v-chip v-for="tag in item.tags" :key="tag" color="light-green" text-color="white" class="mx-1">{{
-                    tag
-                  }}
-                </v-chip>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col sm="2">
-                <v-btn rounded outlined text color="purple" :to="`/store/item/${item.id}`">View
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-col>
+                </p>
+              </v-row>
+              <v-row>
+                <v-col sm="12">
+                  <p class="text-caption">{{ item.description }}</p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col sm="8">
+                  <v-chip v-for="tag in item.tags" :key="tag" color="light-green" text-color="white" class="mx-1">{{
+                      tag
+                    }}
+                  </v-chip>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col sm="2">
+                  <v-btn rounded outlined text color="purple" :to="`/store/item/${item.id}`">View
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-col>
+
+          </template>
         </v-row>
       </v-col>
 
@@ -179,17 +182,20 @@ export default {
     selectedInventoryItems() {
       let selection = [];
 
-      if (this.selectedFilter.toLowerCase() == 'all') {
-        return this.$store.state.store.inventory;
-      }
-
       for (let item of this.$store.state.store.inventory) {
         let item_tags = item.tags;
 
-        if (!item_tags.includes(capitalize(this.selectedFilter))) {
+        if (!item_tags.includes(capitalize(this.selectedFilter)) && this.selectedFilter.toLowerCase() !== 'all') {
           continue;
         }
 
+        let available_products = [];
+
+        for (let product of item.products.filter(product => product.available === undefined || product.available)) {
+          available_products.push(product);
+        }
+
+        item.products = available_products;
         selection.push(item);
       }
 

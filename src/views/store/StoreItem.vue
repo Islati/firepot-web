@@ -43,7 +43,7 @@
                   </ul>
                 </v-row>
                 <v-row class="justify-center" v-if="!$vuetify.breakpoint.mobile">
-                  <v-col sm="2" class="justify-center" >
+                  <v-col sm="2" class="justify-center">
                     <v-btn to="/" text outlined color="red">Back</v-btn>
                   </v-col>
                   <v-col sm="2" class="justify-center">
@@ -55,11 +55,11 @@
                   </v-col>
                 </v-row>
                 <v-row class="justify-center mt-2" v-else>
-                    <OrderingInfoModal @close="orderInfoModalVisible = false" :visible="orderInfoModalVisible"
-                                       max-width="95%"></OrderingInfoModal>
-                    <v-btn type="button" text outlined color="info" @click="orderInfoModalVisible = true">
-                      Order
-                    </v-btn>
+                  <OrderingInfoModal @close="orderInfoModalVisible = false" :visible="orderInfoModalVisible"
+                                     max-width="95%"></OrderingInfoModal>
+                  <v-btn type="button" text outlined color="info" @click="orderInfoModalVisible = true">
+                    Order
+                  </v-btn>
                 </v-row>
               </v-card-text>
             </v-col>
@@ -145,6 +145,9 @@ export default {
       let info = [];
 
       for (let product of this.storeItem.products) {
+        if (product.available !== undefined && product.available === false) {
+          continue;
+        }
         info.push(`$${product.cost}/${product.name}`)
       }
 

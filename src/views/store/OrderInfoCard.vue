@@ -29,7 +29,7 @@
     </v-row>
     <v-row class="justify-center">
       <v-col sm="12">
-        <p class="text-center">Text <span class="font-italic" style="background-color: #efefef">+1 (709) 500 6995</span>
+        <p class="text-center">Text <span class="font-italic" style="background-color: #efefef">+1 (709) 500 6388</span>
           with your order
           using the template above.</p>
         <p class="subtitle-2 font-weight-light text-center">Our delivery drivers do not handle transactions. All orders

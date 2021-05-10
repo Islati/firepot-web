@@ -20,6 +20,7 @@
                   @click="logoClick"
               />
               <h3 v-if="$vuetify.breakpoint.mobile">FirePot</h3>
+              <h2 v-else>FirePot</h2>
             </div>
           </v-col>
 
