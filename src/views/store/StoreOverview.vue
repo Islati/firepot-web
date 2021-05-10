@@ -182,39 +182,6 @@ export default {
     selectedInventoryItems() {
       let selection = [];
 
-      if (this.selectedFilter.toLowerCase() === 'all') {
-        let sorted_segments = [];
-        let segment_sorts = ['Flower','Concentrate','Edibles'];
-        let segment = [];
-        for(let segment_filter of segment_sorts){
-          for(let item of this.$store.state.store.inventory) {
-            if (item.tags.includes(segment_filter)) {
-              segment.push(item);
-            }
-          }
-          sorted_segments.push(segment);
-          segment = [];
-        }
-
-        let sorted_items = [];
-        for(let segmented_list of sorted_segments) {
-          for(let item of segmented_list) {
-
-            let available_products = [];
-
-            for (let product of item.products.filter(product => product.available === undefined || product.available)) {
-              available_products.push(product);
-            }
-
-            item.products = available_products;
-
-            sorted_items.push(item);
-          }
-        }
-
-        return sorted_items.filter(i => i.stocked);
-      }
-
       for (let item of this.$store.state.store.inventory) {
         let item_tags = item.tags;
 
@@ -232,7 +199,36 @@ export default {
         selection.push(item);
       }
 
-      return selection.filter(i => i.stocked);
+      let sorted_segments = [];
+      let segment_sorts = ['Flower','Concentrate','Edibles'];
+      let segment = [];
+      for(let segment_filter of segment_sorts){
+        for(let item of selection) {
+          if (item.tags.includes(segment_filter)) {
+            segment.push(item);
+          }
+        }
+        sorted_segments.push(segment);
+        segment = [];
+      }
+
+      let sorted_items = [];
+      for(let segmented_list of sorted_segments) {
+        for(let item of segmented_list) {
+
+          let available_products = [];
+
+          for (let product of item.products.filter(product => product.available === undefined || product.available)) {
+            available_products.push(product);
+          }
+
+          item.products = available_products;
+
+          sorted_items.push(item);
+        }
+      }
+
+      return sorted_items.filter(i => i.stocked);
     }
   },
   methods: {
