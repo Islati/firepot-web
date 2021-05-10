@@ -372,6 +372,54 @@ export default new Vuex.Store({
                         }
                     ]
                 },
+                {
+                    id: 110, //Item ID <- Not PRODUCT ID
+                    title: "UBC Chemo",
+                    stocked: true,
+                    description: "Rumor has it that Chemo’s beginnings stretch back to the 1970s in Canada where this heavy indica was allegedly developed to treat the side effects of chemotherapy. Another name for this strain is “UBC Chemo” in reference to the university in which Chemo is said to have been conceived. Chemo’s genetics is carried on by Jordan of the Islands, whose rendition is best known for its subtle woody aroma and potent medicinal effects perfect for patients treating nausea, appetite loss, pain, and sleeplessness.",
+                    images: {
+                        cover: require("./assets/ubc-chemo-nug-min.jpg"),
+                        gallery: [
+                            {
+                              src: require('./assets/ubc-chemo-nug-min.jpg')
+                            },
+                            {
+                                src: require('./assets/ubc-chemo-pile-min.jpg')
+                            }
+                        ]
+                    },
+                    tags: ["Indica", "Flower"],
+                    products: [
+                        {
+                            id: 138,
+                            name: "g",
+                            cost: 10
+                        },
+
+                        {
+                            id: 139,
+                            name: "3.5g",
+                            cost: 25
+                        },
+
+                        {
+                            id: 140,
+                            name: "7g",
+                            cost: 45
+                        },
+
+                        {
+                            id: 141,
+                            name: "14g",
+                            cost: 70
+                        },
+                        {
+                            id: 142,
+                            name: "oz",
+                            cost: 125
+                        }
+                    ]
+                },
             ]
         }
     },
