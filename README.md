@@ -1,7 +1,5 @@
 # FirePot
 
-Vue JS Frontend for Cannabis retailer.
-
 Features
 * Login Page
 * Registration Page
