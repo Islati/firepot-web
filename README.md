@@ -1,4 +1,4 @@
-# FirePot
+# FirePot - Vue.JS Cannabis Retail Mockup
 
 Features
 * Login Page
