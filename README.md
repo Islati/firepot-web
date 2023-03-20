@@ -1,6 +1,6 @@
-# FirePot - Vue.JS Cannabis Retail Mockup
+# Proof-of-concept Vue.JS for Cannabis Retail.
 
-Features
+## Features
 * Login Page
 * Registration Page
 * Store
@@ -8,9 +8,10 @@ Features
 * Simple Setup
 * Minimalistic design
 
-Click for previews of the website:
-https://imgur.com/a/r6Xac9y
+[Album featuring pictures of Interface, Hosted on Imgur](https://imgur.com/a/r6Xac9y)
 
+Local Development
+==
 
 ## Project setup
 ```
